@@ -2,22 +2,24 @@ import React, {Component} from 'react';
 import './style.scss';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {googleLogin} from '../../actions/index.js';
+import {googleLogin, facebookLogin} from '../../actions/index.js';
 
 import {Redirect} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 class Login extends Component{
   constructor(props){
     super(props);
-    this.googleLoginSuccess = this.googleLoginSuccess.bind(this);
+    this.responseGoogle   = this.responseGoogle.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
-  googleLoginSuccess(cb){
-    const user = cb.profileObj;
+  responseGoogle(response){
+    const user = response.profileObj;
     this.props.googleLogin(user);
   }
-  googleLoginFailed(err){
-    console.log(err);
+  responseFacebook(response){
+    this.props.facebookLogin(response);
   }
 
   render(){
@@ -35,9 +37,14 @@ class Login extends Component{
                     <button onClick={renderProps.onClick}>This is my custom Google button</button>
                 )}
                 buttonText="Login"
-                onSuccess={this.googleLoginSuccess}
-                onFailure={this.googleLoginFailed}
+                onSuccess={this.responseGoogle}
               />
+              <FacebookLogin
+                 appId="567336290432352"
+                 autoLoad={false}
+                 fields="name,email,picture"
+                 callback={this.responseFacebook}
+             />
             </div>
           </div>
       </div>
@@ -48,7 +55,7 @@ function mapStateToProps({user}){
   return {user};
 }
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({googleLogin}, dispatch);
+  return bindActionCreators({facebookLogin, googleLogin}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -20,7 +20,7 @@ class Gulo extends Component{
     this.props.logout();
   }
   auth_test(){
-    API_CALL('POST', '/user/auth-test').then((data) => {
+    API_CALL('POST', '/user/login/auth-test').then((data) => {
       console.log(data);
     }).catch(e => console.log(e));
   }
