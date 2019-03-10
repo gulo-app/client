@@ -11,6 +11,11 @@ class Gulo extends Component{
     super(props);
     this.logout = this.logout.bind(this);
   }
+  componentDidMount(){
+    window.addEventListener("beforeunload", (ev) =>  {
+        this.logout();
+    });
+  }
   logout(){
     this.props.logout();
   }
