@@ -17,6 +17,7 @@ class Login extends Component{
     //this.props.verifyAuth();
   }
   responseGoogle(response){
+    console.log(response);
     const user = response.profileObj;
     user.tokenId = response.tokenId;
     this.props.googleLogin(user);
