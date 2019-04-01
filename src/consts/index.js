@@ -1,7 +1,6 @@
 const axios = require('axios');
 
-//const URI = "http://localhost:9001";
-const URI = "https://gulo-service.herokuapp.com";
+const URI = process.env.NODE_ENV==='production' ? "https://gulo-service.herokuapp.com" : "http://localhost:9001";
 console.log(`service-url: ${URI}`);
 
 const API_CALL = (verb, path, data) => {

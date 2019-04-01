@@ -1,0 +1,27 @@
+.Product{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0px;
+  cursor: pointer;
+
+  &.checked{text-decoration: line-through;}
+
+  &:first-child{margin-top: -12px;}
+  &{border-bottom: 1px solid #eee;}
+
+  & .product{
+    display: flex;
+    flex-direction: row;
+    & .name{
+      margin-right: 5px;
+    }
+    & .quantity{
+      margin-right: 5px;
+    }
+  }
+
+  & .options{
+    margin-right: auto;
+  }
+}
