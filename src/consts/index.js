@@ -1,6 +1,8 @@
 const axios = require('axios');
 
-const URI = "http://localhost:9001";
+//const URI = "http://localhost:9001";
+const URI = "https://gulo-service.herokuapp.com/";
+console.log(`service-url: ${URI}`);
 
 const API_CALL = (verb, path, data) => {
   return new Promise((resolve, reject) => {
@@ -13,7 +15,7 @@ const API_CALL = (verb, path, data) => {
       data
     }).then((res) => {
       resolve(res.data);
-    }).catch((err) => {      
+    }).catch((err) => {
       reject(err);
     })
   });
