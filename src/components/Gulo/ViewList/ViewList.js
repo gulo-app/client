@@ -14,8 +14,7 @@ class ViewList extends Component{
     this.setList    =     this.setList.bind(this);
   }
   componentDidMount(){
-    this.setList();
-    this.fetchProducts();
+    this.setList();    
   }
   componentDidUpdate(prevProps){
     if(prevProps.lists.length===0 && this.props.lists.length>0)
@@ -29,7 +28,7 @@ class ViewList extends Component{
     this.setState({list});
   }
   fecthProducts(){
-    
+
   }
 
   render(){

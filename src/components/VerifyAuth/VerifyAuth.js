@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {setUser} from '../../actions/user/index.js';
-import {Redirect} from 'react-router-dom';
 import {API_CALL} from '../../consts';
 
 class VerifyAuth extends Component{
   constructor(props){
     super(props);
-    this.state = {redirectToLogin: false};
     this.verifyAuth = this.verifyAuth.bind(this);
   }
   componentDidMount(){
@@ -19,12 +18,11 @@ class VerifyAuth extends Component{
     API_CALL('POST', '/user/login/auth-test').then((user) => {
       this.props.setUser(user);
     }).catch((e) => {
-      this.setState({redirectToLogin: true})
+      this.props.history.push(`/login`);
     });
   }
   render(){
-    let {redirectToLogin} = this.state;
-    return redirectToLogin ? <Redirect to="Login" /> : null;
+    return null;
   }
 }
 
@@ -35,4 +33,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({setUser}, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(VerifyAuth);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(VerifyAuth));
