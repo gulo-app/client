@@ -1,0 +1,86 @@
+/*modal transition*/
+.ReactModal__Content {
+  transition: opacity 500ms ease-in-out;
+  opacity: 0;
+
+  &--after-open {
+    opacity: 1;
+  }
+}
+
+.Modal{
+  position: relative;
+  overflow-y: auto;
+  top: 50%;
+  height: 85%;
+  width:  90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  transform: translateY(-50%);
+  padding: 10px 10px;
+  border-radius:  15px;
+  outline: 0px;
+  background: #fff;
+
+  & header.modal-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 1.4em;
+    color: #f95d49;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  & form {
+    direction: rtl;
+
+    & header{
+      background: #ebebeb;
+      color: black;
+      margin: 10px -10px;
+      padding: 4px;
+    }
+    & .field{
+      margin-top: 5px;
+      & > div:first-child{
+        font-size: 0.8em;
+        padding: 5px 0px;
+      }
+
+      & input{
+        width: 100%;
+        border: 0px;
+        border-bottom: 2px solid #f95d49;
+        outline: 0px;
+        font-size: 1em;
+
+        &.ltr{
+          direction: ltr;
+          text-align: left;
+        }
+      }
+    }
+
+    & footer{
+      position: absolute;
+      bottom: 10px;
+      display: flex;
+      flex-direction: row;
+      margin: 0px -10px;
+      width: 100%;
+
+      & div{
+        width: 100%;
+        text-align: center;
+        & button{
+          background: transparent;
+          border: 0px;
+          color: #f95d49;
+          font-size: 1.2em;
+          font-weight: bold;
+        }
+      }
+    }
+  } //end of form
+}

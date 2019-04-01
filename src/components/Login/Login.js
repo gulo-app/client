@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import './style.scss';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {googleLogin, facebookLogin} from '../../actions/index.js';
-
+import {googleLogin, facebookLogin, verifyAuth} from '../../actions/user/index.js';
 import {Redirect} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
@@ -11,20 +10,25 @@ import FacebookLogin from 'react-facebook-login';
 class Login extends Component{
   constructor(props){
     super(props);
-    this.responseGoogle   = this.responseGoogle.bind(this);
-    this.responseFacebook = this.responseFacebook.bind(this);
+    this.responseGoogle   =   this.responseGoogle.bind(this);
+    this.responseFacebook =   this.responseFacebook.bind(this);
+  }
+  componentDidMount(){
+    //this.props.verifyAuth();
   }
   responseGoogle(response){
     const user = response.profileObj;
+    user.tokenId = response.tokenId;
     this.props.googleLogin(user);
   }
   responseFacebook(response){
+    console.log(response);
     this.props.facebookLogin(response);
   }
 
   render(){
     const user = this.props.user;
-    if(user) return <Redirect to='/' />;
+    if(user) return <Redirect to='/lists' />;
 
     return(
       <div className="Login">
@@ -55,7 +59,7 @@ function mapStateToProps({user}){
   return {user};
 }
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({facebookLogin, googleLogin}, dispatch);
+  return bindActionCreators({facebookLogin, googleLogin, verifyAuth}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

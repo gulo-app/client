@@ -1,0 +1,48 @@
+.ListShares{
+  .toggle-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & .btn-plus{
+      border: 0px;
+      border-radius: 50px;
+      padding: 4px 5px;
+      background-color: #f95d49;
+      color: white;
+      outline: 0px;
+    }
+  }
+  & input{
+    margin-top: 20px;
+
+    &.invalid{
+      border: 1px dashed #f95d49!important;
+    }
+  }
+
+  & .shares-list{
+    .share{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      & .pic{
+        & img{
+          width: 20px; height: 20px; border-radius: 50px;
+        }
+      }
+
+      & .details{
+        margin-right: 10px;
+        font-size: 0.8em;
+        & .mail{
+          font-size: 0.7em;
+          color: #aaa;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.List{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+    & .icon{
+      border-radius: 50px;
+      padding: 7px 7px;
+      border: 0px solid black;      
+      & svg{
+
+      }
+    }
+    & .title{
+      margin-left: auto;
+      margin-right: 20px;
+
+      & .name{
+        font-size: 1.5em;
+        & .total{
+          font-size: 0.6em;
+        }
+      }
+      & .mail{
+        font-size: 0.7em;
+        color: #bfbfbf;
+      }
+    }
+}

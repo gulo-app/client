@@ -13,12 +13,12 @@ const API_CALL = (verb, path, data) => {
       data
     }).then((res) => {
       resolve(res.data);
-    }).catch((err) => {
+    }).catch((err) => {      
       reject(err);
     })
   });
 }
 
-module.exports = {  
+module.exports = {
   API_CALL
 }

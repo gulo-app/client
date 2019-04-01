@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+.Gulo{
+  min-height: 100vh;
+  font-size: 16px;
+  direction: rtl;
+  font-family: 'Rubik', sans-serif;
+  background: #f8f8f8;
+  & a{
+    color: inherit;
+    text-decoration: none;
+  };
+
+  & .Page header{
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px 10px;
+    & .title{
+      font-size: 1.5em;
+    }
+  }
+  & .Page main{    
+    padding: 30px 10px;
+  }
+
+  & .Page footer{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      position: fixed;
+      width: 100%;
+      bottom: 30px;
+      right: auto;
+      left: auto;
+
+      & button{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        padding: 10px 30px;
+        font-size: 1.2em;
+        border-radius: 20px;
+        background: #f95d49;
+        color: white;
+        border: 0px;
+
+        & svg{
+          margin-left: 10px;
+          font-size: 1em;
+        }
+      }
+  }
+}

@@ -1,52 +1,49 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import React, {Component}   from 'react';
+import './style.scss';
+import '../../FontAwesomeLib';
+import {Route, Switch}      from  'react-router-dom';
+import {connect}            from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {logout} from '../../actions/index.js';
+import {fetchLists}         from '../../actions/list';
 
-import {API_CALL} from '../../consts';
+import VerifyAuth   from '../VerifyAuth';
+import SideMenu     from  './SideMenu';
+import Lists        from  './Lists';
+import AddList      from  './AddList/AddList';
+import ViewList     from  './ViewList';
 
 class Gulo extends Component{
   constructor(props){
     super(props);
-    this.logout = this.logout.bind(this);
+    this.fetchInitialData   =   this.fetchInitialData.bind(this);
   }
   componentDidMount(){
-    window.addEventListener("beforeunload", (ev) =>  {
-        this.logout();
-    });
+    this.fetchInitialData();
   }
-  logout(){
-    this.props.logout();
-  }
-  auth_test(){
-    API_CALL('POST', '/user/login/auth-test').then((data) => {
-      console.log(data);
-    }).catch(e => console.log(e));
+  fetchInitialData(){
+    this.props.fetchLists();
   }
   render(){
-    if (!this.props.user) return <Redirect to='Login' />;
-    console.log(this.props.user);
+    const {user} = this.props;
+    if(!user) return <VerifyAuth/>
     return(
       <div className='Gulo'>
-        this is Gulo!
-
-        <div>
-          <br/><br/><br/>
-          <button onClick={this.auth_test}>auth-test</button>
-          <br/><br/><br/>
-          <button onClick={this.logout}>LogOut</button>
-        </div>
+        <VerifyAuth/>
+        <SideMenu />
+        <Switch>
+          <Route path='/addList' component={AddList}/>
+          <Route path='/list/:list_id' component={ViewList}/>
+          <Route path='/' component={Lists}/>
+        </Switch>
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
-  return {user: state.user};
-}
+const mapStateToProps = ({user}) => {return {user} };
+
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({logout}, dispatch);
+  return bindActionCreators({fetchLists}, dispatch);
 }
 
 
