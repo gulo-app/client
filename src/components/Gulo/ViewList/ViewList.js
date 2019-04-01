@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './style.scss';
 import _ from 'lodash';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Icon from '../../Misc/Icon';
 import MenuToggler  from '../../Misc/MenuToggler';
@@ -30,7 +31,6 @@ class ViewList extends Component{
   fecthProducts(){
     //list/1
   }
-
   render(){
     let {list} = this.state;
     if(!list) return null;
@@ -40,7 +40,7 @@ class ViewList extends Component{
         <header>
           <div className='right'><MenuToggler /></div>
           <div className='title'>{list.list_name}</div>
-          <div className='left'><Icon icon='search' size='2x' /></div>
+          <div className='left'><Icon icon='arrow-left' size='2x' onClick={() => this.props.history.goBack()} /></div>
         </header>
         <main className='lists'>
 
@@ -54,4 +54,4 @@ class ViewList extends Component{
 }
 
 const mapStateToProps = ({lists}) => {return {lists} };
-export default connect(mapStateToProps)(ViewList);
+export default withRouter(connect(mapStateToProps)(ViewList));

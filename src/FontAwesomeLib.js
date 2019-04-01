@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faSearch, faEllipsisV, faPlus, faMinus, faUndo } from '@fortawesome/free-solid-svg-icons';
-import { faHome, faDesktop, faHotel, faArchive } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faDesktop, faHotel, faArchive, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
@@ -14,7 +15,8 @@ library.add(
   faDesktop,
   faHotel,
   faArchive,
-  faFile
+  faFile,
+  faArrowLeft
 );
 
 export default library;
