@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-console.log(window.location.hostname);
 const URI = window.location.hostname.includes('heroku') ? "https://gulo-service.herokuapp.com" : "http://localhost:9001";
 console.log(`service-url: ${URI}`);
 
