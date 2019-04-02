@@ -47,8 +47,8 @@ class Lists extends Component{
           <div className='left'><Icon icon='search' size='2x' /></div>
         </header>
         <main className='lists'>
-          {lists.length>0   && this.renderLists()}
-          {lists.length===0 && this.renderEmpty()}
+          {_.size(lists)>0   && this.renderLists()}
+          {_.size(lists)===0 && this.renderEmpty()}
         </main>
         <footer>
           <button onClick={this.toggleIsNew}><Icon icon="plus" />רשימה חדשה </button>

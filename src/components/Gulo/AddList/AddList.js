@@ -30,12 +30,12 @@ class AddList extends Component{
     e.preventDefault();
     if(!this.state.device_id)
       if(!window.confirm('האם להוסיף רשימה ללא התקן?')) return false;
-          
+
     API_CALL('POST', '/list', this.state).then((list) => {
       this.props.insertList(list);
       this.props.close();
     }).catch((e) => {
-      let error = e.response.data;
+      let error = e.response && e.response.data;
       if(error==='device details invalid')
         alert("פרטי ההתקן אינם נכונים");
       else if(error==='device already connected')

@@ -1,10 +1,12 @@
 import React, {Component}   from 'react';
 import './style.scss';
 import '../../FontAwesomeLib';
+import io                   from 'socket.io-client';
 import {Route, Switch}      from  'react-router-dom';
 import {connect}            from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchLists}         from '../../actions/list';
+import {URI}                from '../../consts'
 
 import VerifyAuth   from '../VerifyAuth';
 import SideMenu     from  './SideMenu';
@@ -19,6 +21,14 @@ class Gulo extends Component{
   }
   componentDidMount(){
     this.fetchInitialData();
+    this.createSocket();
+  }
+  createSocket(){
+    const socket = io(URI);
+    console.log(socket.id); // undefined
+    socket.on('connect', () => {
+      console.log(socket.id); // 'G5p5...'
+    });
   }
   fetchInitialData(){
     this.props.fetchLists();

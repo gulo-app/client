@@ -7,7 +7,6 @@ class Product extends Component{
   constructor(props){
     super(props);
     let {product} = this.props;
-    console.log(product);
     this.state = {isChecked: product.isChecked}
 
     this.toggleCheck      =     this.toggleCheck.bind(this);
