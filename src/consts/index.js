@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const URI = window.location.hostname.includes('heroku') ? "http://montv10.net:9400" : "http://localhost:9001"; //https://gulo-service.herokuapp.com
+const URI = window.location.hostname.includes('heroku') ? "https://montv10.net:9400" : "http://localhost:9001"; //https://gulo-service.herokuapp.com
 console.log(`service-url: ${URI}`);
 
 const API_CALL = (verb, path, data) => {
