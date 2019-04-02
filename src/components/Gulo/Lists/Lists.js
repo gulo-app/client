@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './style.scss';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-//import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Icon from '../../Misc/Icon';
 import EmptyList from './EmptyList';
 import List from './List';
@@ -15,6 +15,12 @@ class Lists extends Component{
     super(props);
     this.state = {isNew: false};
     this.toggleIsNew      =     this.toggleIsNew.bind(this);
+  }
+  componentDidMount(){
+    window.addEventListener("beforeunload", (ev) => {
+      ev.preventDefault();
+      //this.props.history.goForward();
+    });
   }
   toggleIsNew(){
     let isNew = !(this.state.isNew);
@@ -30,7 +36,7 @@ class Lists extends Component{
     return <EmptyList/>
   }
   render(){
-    let {lists} = this.props;    
+    let {lists} = this.props;
     return(
       <div className='Page Lists'>
         <Modal isOpen={this.state.isNew} ><AddList close={this.toggleIsNew} closeTimeoutMS={1000} /></Modal>
@@ -54,4 +60,4 @@ class Lists extends Component{
 
 const mapStateToProps = ({lists}) => {return {lists} };
 
-export default connect(mapStateToProps)(Lists);
+export default withRouter(connect(mapStateToProps)(Lists));
