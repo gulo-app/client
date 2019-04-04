@@ -31,8 +31,7 @@ class AddList extends Component{
     if(!this.state.device_id)
       if(!window.confirm('האם להוסיף רשימה ללא התקן?')) return false;
 
-    API_CALL('POST', '/list', this.state).then((list) => {
-      this.props.insertList(list);
+    API_CALL('POST', '/list', this.state).then((cb) => {
       this.props.close();
     }).catch((e) => {
       let error = e.response && e.response.data;

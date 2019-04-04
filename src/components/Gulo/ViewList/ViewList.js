@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './style.scss';
 import _ from 'lodash';
-import {withRouter}     from 'react-router-dom';
+import {withRouter, Redirect}     from 'react-router-dom';
 import {connect}        from 'react-redux';
 import Icon             from '../../Misc/Icon';
 import MenuToggler      from '../../Misc/MenuToggler';
@@ -10,18 +10,15 @@ import Product          from './Product';
 
 class ViewList extends Component{
   renderListProducts(){
-    let {list_id} = this.props.match.params;
-    let list      = this.props.lists[list_id];
+    let {list}  =  this.props;
     let products =_.map(list.products, (product) => {
       return <Product key={product.id} product={product} />
     });
     return products;
   }
   render(){
-    let {lists} = this.props;
-    if(_.size(lists)===0) return null;
-    let {list_id} = this.props.match.params;
-    let list = lists[list_id];
+    let {list} = this.props;
+    if(!list) return <Redirect to='/' />;
     return(
       <div className='Page ViewList'>
         <header>
@@ -40,5 +37,5 @@ class ViewList extends Component{
   }
 }
 
-const mapStateToProps = ({lists}) => {return {lists} };
+const mapStateToProps = ({lists}, ownProps) => {return {list: lists[ownProps.match.params.list_id]}};
 export default withRouter(connect(mapStateToProps)(ViewList));

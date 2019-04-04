@@ -58,6 +58,6 @@ class Lists extends Component{
   }
 }
 
-const mapStateToProps = ({lists}) => {return {lists} };
+const mapStateToProps = ({lists, socket}) => {return {lists, socket} };
 
 export default withRouter(connect(mapStateToProps)(Lists));

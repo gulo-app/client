@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {logout}             from '../../../actions/user';
 
 
-class SideMenu extends Component{  
+class SideMenu extends Component{
   render(){
     let {isMenu} = this.props;
     if(!isMenu) return null;
