@@ -8,13 +8,13 @@ import EmptyList from './EmptyList';
 import List from './List';
 import MenuToggler  from '../../Misc/MenuToggler';
 import Modal from   '../../Misc/MyModal';
-import AddList from '../AddList';
+import ModalList from './ModalList';
 
 class Lists extends Component{
   constructor(props){
     super(props);
-    this.state = {isNew: false};
-    this.toggleIsNew      =     this.toggleIsNew.bind(this);
+    this.state = {isModal: false, editList: null};
+    this.toggleIsModal      =     this.toggleIsModal.bind(this);
   }
   componentDidMount(){
     window.addEventListener("beforeunload", (ev) => {
@@ -22,24 +22,31 @@ class Lists extends Component{
       //this.props.history.goForward();
     });
   }
-  toggleIsNew(){
-    let isNew = !(this.state.isNew);
-    this.setState({isNew});
+  toggleIsModal(){
+    let isModal = !(this.state.isModal);
+    this.setState({isModal}, () => {
+      if(!isModal)
+        this.setState({editList: null});
+    });
   }
   renderLists(){
     let {lists} = this.props;
     return _.map(lists, (list) => {
-      return <List key={list.list_id} list={list} />
+      return <List key={list.list_id} list={list}
+                showList={() => this.props.history.push(`/list/${list.list_id}`)}
+                editList={() => this.setState({editList: list, isModal: true})}
+            />
     })
   }
   renderEmpty(){
     return <EmptyList/>
   }
+
   render(){
     let {lists} = this.props;
     return(
       <div className='Page Lists'>
-        <Modal isOpen={this.state.isNew} ><AddList close={this.toggleIsNew} closeTimeoutMS={1000} /></Modal>
+        <Modal isOpen={this.state.isModal} ><ModalList list={this.state.editList} close={this.toggleIsModal} /></Modal>
 
         <header>
           <div className='right'><MenuToggler /></div>
@@ -51,7 +58,7 @@ class Lists extends Component{
           {_.size(lists)===0 && this.renderEmpty()}
         </main>
         <footer>
-          <button onClick={this.toggleIsNew}><Icon icon="plus" />רשימה חדשה </button>
+          <button onClick={this.toggleIsModal}><Icon icon="plus" />רשימה חדשה </button>
         </footer>
       </div>
     );

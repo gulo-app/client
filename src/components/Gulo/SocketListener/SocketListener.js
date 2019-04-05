@@ -1,10 +1,10 @@
 import {Component} from 'react';
-import io                               from 'socket.io-client';
-import {connect}                        from 'react-redux';
-import {insertList}         from '../../../actions/list';
-import {updateListProduct}              from '../../../actions/list/product';
-import {subscribeSocket}                from '../../../actions/socket';
-import {URI}                            from '../../../consts'
+import io                                           from 'socket.io-client';
+import {connect}                                    from 'react-redux';
+import {insertList, updateList, deleteList}         from '../../../actions/list';
+import {updateListProduct}                          from '../../../actions/list/product';
+import {subscribeSocket}                            from '../../../actions/socket';
+import {URI}                                        from '../../../consts'
 
 class SocketListener extends Component{
   constructor(props){
@@ -27,6 +27,8 @@ class SocketListener extends Component{
       subscribeSocket(socket, this.props.user);
 
       socket.on('newList', (newList) => this.props.insertList(newList));
+      socket.on('listUpdated', (updatedList) => this.props.updateList(updatedList));
+      socket.on('listDeleted', (list_id) => this.props.deleteList(list_id));
       socket.on('updateListProduct', (listProduct) => this.props.updateListProduct(listProduct));
     });
   }
@@ -36,4 +38,4 @@ class SocketListener extends Component{
 
 const mapStateToProps = ({user, socket}) => {return {user, socket} };
 
-export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct})(SocketListener);
+export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, updateList, deleteList})(SocketListener);

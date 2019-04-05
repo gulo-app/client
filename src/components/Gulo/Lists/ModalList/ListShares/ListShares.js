@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './style.scss';
-import Icon from '../../../Misc/Icon';
-import {API_CALL} from '../../../../consts';
+import Icon from '../../../../Misc/Icon';
+import {API_CALL} from '../../../../../consts';
 import _ from 'lodash';
 
 class ListShares extends Component{
@@ -35,14 +35,16 @@ class ListShares extends Component{
   renderDataListOptions(){
     let {users} = this.state;
     let options = _.map(users, (user) => {
+      //console.log(user);
       return <option key={user.mail} value={user.mail}>{user.fullname}</option>
     })
     return options;
   }
   renderSharesList(){
+    let {creator} = this.props;
     let shares = _.map(this.props.shares, (share) => {
       return (
-        <div className='share' key={share.mail}>
+        <div className='share' key={share.mail} onClick={() => this.validateRemove(share)}>
           <div className='pic'><img src={share.pic} alt=''/></div>
           <div className='details'>
             <div className='name'>{share.fullname}</div>
@@ -51,6 +53,17 @@ class ListShares extends Component{
         </div>
       );
     });
+    if(creator){ //add manager to list
+      let Manager = (<div className='share manager' key={creator.mail}>
+                      <div className='pic'><img src={creator.pic} alt=''/></div>
+                      <div className='details'>
+                        <div className='name'>מנהל: {creator.fullname}</div>
+                        <div className='mail'>{creator.mail}</div>
+                      </div>
+                    </div>
+                  );
+       shares.unshift(Manager);
+    }
     return <div className='shares-list'>{shares}</div>;
   }
   handleChange(e){
@@ -68,18 +81,28 @@ class ListShares extends Component{
     }
     this.props.onInsert(match[0]);
   }
+  validateRemove(share){
+    let {isCreator} = this.props;
+    if(!isCreator) return false;
+
+    if(!window.confirm(`האם להסיר מהקבוצה את המשתמש\n${share.fullname}?`));
+    this.props.onRemove(share);
+  }
   render(){
     let {status, value, isValid} = this.state;
+    let {isCreator} = this.props;
 
     return(
       <div className='ListShares'>
-        <div className='toggle-row'>
-          <div onClick={this.toggleStatus}>
-            <Icon icon={status ? 'minus' : 'plus'} /> &nbsp;
-            {status ? 'ביטול הוספת שותף' : 'הוסף שותף לרשימה'}
+        {isCreator &&
+          <div className='toggle-row'>
+            <div onClick={this.toggleStatus}>
+              <Icon icon={status ? 'minus' : 'plus'} /> &nbsp;
+              {status ? 'ביטול הוספת שותף' : 'הוסף שותף לרשימה'}
+            </div>
+            {status && <div><button className='btn-plus' onClick={this.validateInsert}><Icon icon='plus' /></button></div>}
           </div>
-          {status && <div><button className='btn-plus' onClick={this.validateInsert}><Icon icon='plus' /></button></div>}
-        </div>
+        }
         {status && <input className={`ltr ${isValid ? '' : 'invalid'}`} type='text' list="users" value={value} onChange={this.handleChange} placeholder="Search partner by Email or FullName..." />}
 
         {!status && this.renderSharesList()}

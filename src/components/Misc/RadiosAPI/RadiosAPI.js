@@ -23,11 +23,12 @@ class RadiosAPI extends Component{
     });
   }
   renderRadios(){
-    let {onClick, name, value} = this.props;
+    let {name, value} = this.props;
     let {options} = this.state;
     let radios = _.map(options, (option) => {
       let bg = {backgroundColor: option.id===value ? option.color : ''};
-      return <div key={option.id} style={bg} onClick={() => onClick({target: {name, value: option.id}})}>{option.name}</div>
+      let onClick = this.props.readOnly ? null : () => this.props.onClick({target: {name, value: option.id}});
+      return <div key={option.id} style={bg} onClick={onClick}>{option.name}</div>
     })
     return radios;
   }

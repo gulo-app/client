@@ -10,7 +10,6 @@ import {fetchLists}         from '../../actions/list';
 import VerifyAuth   from '../VerifyAuth';
 import SideMenu     from  './SideMenu';
 import Lists        from  './Lists';
-import AddList      from  './AddList/AddList';
 import ViewList     from  './ViewList';
 
 class Gulo extends Component{
@@ -27,7 +26,6 @@ class Gulo extends Component{
         <SocketListener />
         <SideMenu />
         <Switch>
-          <Route path='/addList' component={AddList}/>
           <Route path='/list/:list_id' component={ViewList}/>
           <Route path='/' component={Lists}/>
         </Switch>

@@ -1,4 +1,4 @@
-import {FETCH_LISTS, INSERT_LIST} from '../actions/list';
+import {FETCH_LISTS, INSERT_LIST, UPDATE_LIST, DELETE_LIST} from '../actions/list';
 import {UPDATE_LIST_PRODUCT}   from '../actions/list/product';
 import _ from 'lodash';
 
@@ -17,7 +17,16 @@ export default function(state={}, action){
 
     case INSERT_LIST:
       let newList = action.payload;
-      return { ...state, [newList.list_id]: action.payload };
+      return { ...state, [newList.list_id]: newList };
+
+    case UPDATE_LIST:
+      let updatedList = action.payload;
+      return { ...state, [updatedList.list_id]: updatedList };
+
+    case DELETE_LIST:
+      let list_id = action.payload;
+      const {[list_id]: value, ...listsAfterDelete } = state;
+      return listsAfterDelete;
 
     case UPDATE_LIST_PRODUCT:
       let product = action.payload;
