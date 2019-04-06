@@ -11,49 +11,51 @@
     text-decoration: none;
   };
 
-  & .Page header{
-    height: 5vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 10px 10px;
-    & .title{
-      font-size: 1.5em;
-    }
-  }
-  & .Page main{    
-    padding: 30px 10px;
-  }
-
-  & .Page footer{
+  & .Page{
+    & header{
+      height: 5vh;
       display: flex;
       flex-direction: row;
-      justify-content: center;
-      position: fixed;
-      width: 100%;
-      bottom: 30px;
-      right: auto;
-      left: auto;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 10px 10px;
+      & .title{
+        font-size: 1.5em;
+      }
+    }
+    & main{
+      padding: 30px 10px;
+    }
 
-      & button{
+    & footer{
         display: flex;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
-        outline: none;
-        padding: 10px 30px;
-        font-size: 1.2em;
-        border-radius: 20px;
-        background: #f95d49;
-        color: white;
-        border: 0px;
+        position: fixed;
+        width: 100%;
+        bottom: 30px;
+        right: auto;
+        left: auto;
 
-        & svg{
-          margin-left: 10px;
-          font-size: 1em;
+        & button{
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          outline: none;
+          padding: 10px 30px;
+          font-size: 1.2em;
+          border-radius: 20px;
+          background: #f95d49;
+          color: white;
+          border: 0px;
+
+          & svg{
+            margin-left: 10px;
+            font-size: 1em;
+          }
         }
-      }
+    }
   }
 }

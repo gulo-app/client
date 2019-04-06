@@ -1,3 +1,32 @@
 .SideMenu{
-  color: red;
+  $trans-duration: 1s;
+
+  &.hidden{
+    & .overlay{
+      visibility: hidden;
+      transition: visibility $trans-duration;
+    }
+    & main{
+      width: 0px;
+      overflow: hidden;
+      transition: width $trans-duration;
+    }
+  }
+
+  & .overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  & main{
+    position: absolute;
+    width: 80%;
+    transition: width $trans-duration;
+    height: 100%;
+    background: #fff;
+    z-index: 3;
+  }
+
 }
