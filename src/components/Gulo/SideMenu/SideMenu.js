@@ -22,7 +22,7 @@ class SideMenu extends Component{
             <div className='pic'>
               <img src={user.pic} alt='' />
             </div>
-            <div>
+            <div className='username'>
               {user.firstname} {user.lastname}
             </div>
             <div className='hr' />
@@ -41,6 +41,9 @@ class SideMenu extends Component{
               <div className='title'>התנתקות</div>
             </div>
           </menu>
+          <footer>
+            <div>Gulo</div>
+          </footer>
         </main>
       </div>
     );
