@@ -9,7 +9,7 @@ class MyModal extends Component{
       <Modal
         isOpen={this.props.isOpen}
         ariaHideApp={false}
-        className={`Modal ${this.props.className}`}        
+        className={`Modal ${this.props.className}`}
       >
           {this.props.children}
       </Modal>

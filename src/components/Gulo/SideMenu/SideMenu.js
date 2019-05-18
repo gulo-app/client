@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
 import './style.scss';
+import _ from 'lodash';
+import {withRouter}         from 'react-router-dom';
 import {connect}            from 'react-redux';
 import {logout}             from '../../../actions/user';
 import {toggleMenu}         from '../../../actions/UI';
 import MenuToggler          from '../../Misc/MenuToggler';
 import Icon                 from '../../Misc/Icon';
 
-
 class SideMenu extends Component{
+  constructor(props){
+    super(props);
+    this.link = this.link.bind(this);
+  }
+  link(to){
+    this.props.history.push(to);
+    this.props.toggleMenu();
+  }
   render(){
-    let {isMenu, user} = this.props;
-    //if(!isMenu) return null;
+    let {isMenu, user, notifications} = this.props;
+    //const newCounter    = _.filter(notifications, (noti) => noti.isNew===1).length;
+    const unReadCounter = _.filter(notifications, (noti) => noti.isRead===0).length;
 
+    //if(!isMenu) return null;
     return(
       <div className={`SideMenu ${!isMenu && 'hidden'}`}>
         <div className='overlay' onClick={() => this.props.toggleMenu()}></div>
         <main>
           <div className='toggler'><MenuToggler /></div>
-          {/*<div><button onClick={() => this.props.logout()}>LogOut</button></div>*/}
           <div className='profile'>
             <div className='pic'>
               <img src={user.pic} alt='' />
@@ -28,18 +38,23 @@ class SideMenu extends Component{
             <div className='hr' />
           </div>
           <menu className={`${!isMenu && 'hidden'}`}>
-            <div className='row'>
+
+            <div className='row'  onClick={() => this.link('/lists')}>
               <div className='icon' style={{marginRight:'+3px'}}><Icon icon='clipboard-list' /></div>
               <div className='title'>הרשימות שלי</div>
             </div>
-            <div className='row'>
-              <div className='icon'><Icon faType='far' icon='comment' /></div>
+            <div className='row' onClick={() => this.link('/notifications')}>
+              <div className='icon notifications'>
+                  <span className='counter'>{unReadCounter}</span>
+                  <Icon faType='far' icon='comment' />
+              </div>
               <div className='title'>התראות</div>
             </div>
             <div className='row' onClick={() => this.props.logout()}>
               <div className='icon'><Icon icon='power-off' /></div>
               <div className='title'>התנתקות</div>
             </div>
+
           </menu>
           <footer>
             <div>Gulo</div>
@@ -50,6 +65,6 @@ class SideMenu extends Component{
   }
 }
 
-const mapStateToProps = ({user, isMenu}) => {return {user, isMenu} };
+const mapStateToProps = ({user, isMenu, notifications}) => {return {user, isMenu, notifications} };
 
-export default connect(mapStateToProps, {logout, toggleMenu})(SideMenu);
+export default withRouter(connect(mapStateToProps, {logout, toggleMenu})(SideMenu));

@@ -1,0 +1,12 @@
+.Notifications{
+  & .list-notifications{
+
+    & .Notification{
+      &:not(:first-child){
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        margin-top: 15px;
+      }
+    }
+  }
+}

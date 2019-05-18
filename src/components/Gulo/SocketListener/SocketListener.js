@@ -4,6 +4,7 @@ import {connect}                                    from 'react-redux';
 import {insertList, updateList, deleteList}         from '../../../actions/list';
 import {updateListProduct}                          from '../../../actions/list/product';
 import {subscribeSocket}                            from '../../../actions/socket';
+import {insertNotification}                         from '../../../actions/notification';
 import {URI}                                        from '../../../consts'
 
 class SocketListener extends Component{
@@ -30,6 +31,8 @@ class SocketListener extends Component{
       socket.on('listUpdated', (updatedList) => this.props.updateList(updatedList));
       socket.on('listDeleted', (list_id) => this.props.deleteList(list_id));
       socket.on('updateListProduct', (listProduct) => this.props.updateListProduct(listProduct));
+
+      socket.on('newNotification', (newNotification) => this.props.insertNotification(newNotification));
     });
   }
 
@@ -38,4 +41,4 @@ class SocketListener extends Component{
 
 const mapStateToProps = ({user, socket}) => {return {user, socket} };
 
-export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, updateList, deleteList})(SocketListener);
+export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, updateList, deleteList, insertNotification})(SocketListener);

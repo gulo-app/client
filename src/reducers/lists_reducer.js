@@ -13,6 +13,7 @@ export default function(state={}, action){
       _.forOwn(mapLists, (val,key) => {
         val.products = _.keyBy(val.products, 'id') //map products array to mapped object
       })
+      console.log(mapLists);
       return mapLists;
 
     case INSERT_LIST:

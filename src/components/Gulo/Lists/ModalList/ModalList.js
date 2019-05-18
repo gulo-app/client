@@ -137,7 +137,7 @@ class ModalList extends Component{
           <footer>
             <div className='cancel'><button   type="reset">ביטול</button></div>
             <div className='confirm'><button  type="submit">אישור</button></div>
-          </footer>
+          </footer>          
         </form>
       </div>
     );

@@ -78,11 +78,20 @@
         align-items: center;
         margin-top: 25px;
         margin-right: -10px;
-
+        
         & .icon{
           margin-left: 15px;
           & > svg{
             font-size: 1.3em;
+          }
+          &.notifications{
+            position: relative;
+
+            & > .counter{
+              position: absolute;
+              right: 10px; top: 5px;
+              font-size: 0.7em;
+            }
           }
         }
       }

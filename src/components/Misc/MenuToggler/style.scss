@@ -1,0 +1,19 @@
+.MenuToggler{
+  position: relative;
+
+  & > .badger{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+
+    color: white;
+    background: #f95d49;
+    font-size: 0.8em;
+    top: -5px; right: 20px;
+  }
+}

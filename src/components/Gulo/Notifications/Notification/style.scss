@@ -1,0 +1,27 @@
+.Notification{
+    display: flex;
+    flex-direction: row;
+    & .title{
+      width: 75%;
+      & .status{
+        margin-top: 3px;
+        color: #aaa;
+      }
+    }
+    & .at{
+      width: 25%;
+      text-align: left;
+      font-size: 0.8em;
+
+      & .date{
+        color: #aaa;
+      }
+    }
+
+    &.unRead{
+      font-weight: bold;
+      .at .time{
+        color: #f95d49
+      }
+    }
+}
