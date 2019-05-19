@@ -1,4 +1,9 @@
 .ViewNotification{
+  & header{
+    & .Icon.trash{
+      font-size: 1.6em;
+    }
+  }
   & main{
     font-size: 1.2em;
 

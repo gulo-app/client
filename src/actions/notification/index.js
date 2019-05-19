@@ -5,6 +5,7 @@ export const MARK_UNNEW             =   'MARK_UNNEW';
 export const MARK_READ              =   'MARK_READ';
 export const CONFIRM_NOTIFICATION   =   'CONFIRM_NOTIFICATION';
 export const INSERT_NOTIFICATION    =   'INSERT_NOTIFICATION';
+export const DELETE_NOTIFICATION    =   'DELETE_NOTIFICATION';
 
 export function fetchNotifications(){
   const req = API_CALL('GET', '/notification');
@@ -39,9 +40,16 @@ export function confirmNotification(notification_id){
 }
 
 export function insertNotification(notification){
-  console.log(`Action insertNotification()`);
   return {
     type: INSERT_NOTIFICATION,
     payload: notification
+  }
+}
+
+export function deleteNotification(notification_id){
+  const req = API_CALL('DELETE', `/notification/${notification_id}`);
+  return {
+    type: DELETE_NOTIFICATION,
+    payload: req
   }
 }

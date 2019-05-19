@@ -8,14 +8,21 @@ import {markUnNew}    from '../../../actions/notification';
 import MenuToggler  from '../../Misc/MenuToggler';
 import Icon from '../../Misc/Icon';
 import Notification from './Notification';
+import EmptyNotifications from './EmptyNotifications';
 
 class Notifications extends Component{
   componentDidMount(){
-    this.props.markUnNew();
+    const newCounter    = _.filter(this.props.notifications, (noti) => noti.isNew===1).length;
+    if(newCounter>0)
+      this.props.markUnNew();
   }
   renderNotifications(){
-    let Notifications = _.map(this.props.notifications, (noti) => {
-      return <Notification key={noti.notification_id} noti={noti} />
+    let arr = _.values(this.props.notifications);
+    if(arr.length===0)
+      return <EmptyNotifications />;
+
+    let Notifications = _.map(arr.reverse(), (noti, i) => {
+      return <Notification key={i} noti={noti} />
     })
     return Notifications;
   }

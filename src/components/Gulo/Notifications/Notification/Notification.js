@@ -12,6 +12,7 @@ class Notification extends Component{
     let {notification_id} = this.props.noti;
     this.props.history.push(`/notifications/${notification_id}`);
   }
+  
   render(){
       let {noti} = this.props;
       let isToday = moment(noti.modifiedAt).isSame(moment(), 'date');
@@ -19,7 +20,7 @@ class Notification extends Component{
         <div className={`Notification ${!noti.isRead && 'unRead'}`} onClick={this.viewNotification}>
           <div className='title'>
             <div className='topic'>{noti.title}</div>
-            <div className='status'>({noti.status_topic})</div>
+            <div className='status'>{noti.status_topic}</div>
           </div>
           <div className='at'>
             <div className='time'>{moment(noti.modifiedAt).format('HH:mm')}</div>
