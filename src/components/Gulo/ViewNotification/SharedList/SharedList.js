@@ -20,11 +20,11 @@ class SharedList extends Component{
     return(
       <div className='SharedList'>
         <main>
-          <div className='title'>
-            {noti.title}
+          <div className='primary'>
+            {noti.title.primary}
           </div>
-          <div className='status'>
-            {noti.status_topic}
+          <div className='secondary'>
+            {noti.title.secondary}
           </div>
           {this.isConfirmation()}
         </main>

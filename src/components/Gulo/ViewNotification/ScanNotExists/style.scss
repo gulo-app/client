@@ -1,0 +1,35 @@
+.ScanNotExists{
+  main{
+    margin-top: -20px;
+
+    & > .title{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 1.2em;
+      & .topic{
+        & .barcode{
+          color: #aaa;
+        }
+      }
+      & .at{
+        width: 20%;
+        text-align: left;
+      }
+    }
+    & > .img{
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > svg.Icon{
+        font-size: 10em;
+      }
+    }
+    & > .question{
+      text-align: center;
+      font-size: 1.2em;
+    }
+  }
+}

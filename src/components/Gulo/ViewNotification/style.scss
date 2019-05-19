@@ -3,19 +3,5 @@
     & .Icon.trash{
       font-size: 1.6em;
     }
-  }
-  & main{
-    font-size: 1.2em;
-
-    & .status{
-      margin-top: 10px;
-      color: #aaa;
-    }
-  }
-  & .confirmation{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
+  }  
 }

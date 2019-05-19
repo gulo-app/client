@@ -8,6 +8,7 @@ import {markRead, deleteNotification}           from '../../../actions/notificat
 import Icon             from '../../Misc/Icon';
 //import MenuToggler      from '../../Misc/MenuToggler';
 import SharedList       from './SharedList';
+import ScanNotExists    from './ScanNotExists';
 
 class ViewNotification extends Component{
   constructor(props){
@@ -26,11 +27,13 @@ class ViewNotification extends Component{
     let type = noti.notification_type_id;
     if(type===1)
       return <SharedList noti={noti} />
+    if(type===3)
+      return <ScanNotExists noti={noti} />
   }
   deleteNotification(){
     let {noti} = this.props;
     this.props.deleteNotification(noti.notification_id);
-    this.props.history.goBack();    
+    this.props.history.goBack();
   }
   render(){
     let {noti} = this.props;
