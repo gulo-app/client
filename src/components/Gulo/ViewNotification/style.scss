@@ -1,7 +1,17 @@
 .ViewNotification{
+  & .at{
+    font-size: 0.8em;
+    & .date{
+      color: #aaa;
+    }
+  }
   & header{
     & .Icon.trash{
       font-size: 1.6em;
     }
-  }  
+  }
+  & .primary{
+    color: #f95d49;
+    font-size: 1.4em;
+  }
 }

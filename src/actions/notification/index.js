@@ -6,6 +6,7 @@ export const MARK_READ              =   'MARK_READ';
 export const CONFIRM_NOTIFICATION   =   'CONFIRM_NOTIFICATION';
 export const INSERT_NOTIFICATION    =   'INSERT_NOTIFICATION';
 export const DELETE_NOTIFICATION    =   'DELETE_NOTIFICATION';
+export const UPDATE_NOTIFICATION    =   'UPDATE_NOTIFICATION';
 
 export function fetchNotifications(){
   const req = API_CALL('GET', '/notification');
@@ -51,5 +52,12 @@ export function deleteNotification(notification_id){
   return {
     type: DELETE_NOTIFICATION,
     payload: req
+  }
+}
+
+export function updateNotification(notification){
+  return {
+    type: UPDATE_NOTIFICATION,
+    payload: notification
   }
 }

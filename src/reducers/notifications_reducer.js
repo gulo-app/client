@@ -1,4 +1,4 @@
-import {FETCH_NOTIFICATIONS, MARK_UNNEW, MARK_READ, CONFIRM_NOTIFICATION, INSERT_NOTIFICATION, DELETE_NOTIFICATION} from '../actions/notification';
+import {FETCH_NOTIFICATIONS, MARK_UNNEW, MARK_READ, CONFIRM_NOTIFICATION, INSERT_NOTIFICATION, DELETE_NOTIFICATION, UPDATE_NOTIFICATION} from '../actions/notification';
 import _ from 'lodash';
 
 export default function(state=[], action){
@@ -23,6 +23,11 @@ export default function(state=[], action){
       noti_id = action.payload.notification_id;
       const {[noti_id]: value, ...notificationsAfterDelete } = state;
       return notificationsAfterDelete;
+
+    case UPDATE_NOTIFICATION:
+      //console.log('UPDATE');
+      updatedNotification = action.payload;
+      return { ...state, [updatedNotification.notification_id]: updatedNotification };
 
     case MARK_UNNEW:
       //console.log('MARK_UNNEW');

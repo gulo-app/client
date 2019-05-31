@@ -1,0 +1,64 @@
+.ModalBarcode{
+      font-size: 1.1em;
+      & header:not(:first-child){
+        margin-top: 15px;
+      }
+      & .field{
+        padding: 7px;
+      }
+      & .field.row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        & > div{
+          &:first-child{
+            width: 40%;
+            text-align: right;
+          }
+          &:last-child{
+            width: 60%;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            &.multiple{
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+
+              & > div{
+                width: 40%;
+              }
+              & input{
+                text-align: center;
+              }
+            }
+          }
+          & select{
+            width: 100%;
+            font-size: 1em;
+          }
+        }
+      }
+      select {
+        border: 0px;
+        border-bottom: 1px solid #f95d49;
+        font-size: 1.1em;
+        outline: none;
+      }
+      .SelectAPI{
+        &.disabled{
+          color: #aaa;
+        }
+        & option{
+          color: #000;
+        }
+      }
+      input[name='barcode']{
+        color: #aaa;
+      }
+      input::placeholder{
+        color: #aaa;
+      }
+}

@@ -9,6 +9,7 @@ import Icon             from '../../Misc/Icon';
 //import MenuToggler      from '../../Misc/MenuToggler';
 import SharedList       from './SharedList';
 import ScanNotExists    from './ScanNotExists';
+import VerifyProduct    from './VerifyProduct';
 
 class ViewNotification extends Component{
   constructor(props){
@@ -25,10 +26,16 @@ class ViewNotification extends Component{
   renderNotification(){
     let {noti} = this.props;
     let type = noti.notification_type_id;
-    if(type===1)
-      return <SharedList noti={noti} />
-    if(type===3)
-      return <ScanNotExists noti={noti} />
+    switch(type){
+      case 1:
+        return <SharedList noti={noti} />
+      case 3:
+        return <ScanNotExists noti={noti} />
+      case 4:
+        return <VerifyProduct noti={noti} />
+      default:
+        return null;
+    }
   }
   deleteNotification(){
     let {noti} = this.props;
@@ -37,7 +44,9 @@ class ViewNotification extends Component{
   }
   render(){
     let {noti} = this.props;
-    if(!noti) return <Redirect to='/notifications' />;
+    console.log(noti);
+    // if(!noti) return <Redirect to='/notifications' />;
+    if(!noti) return null;
     return(
       <div className='Page ViewNotification'>
         <header>
@@ -45,9 +54,8 @@ class ViewNotification extends Component{
           <div className='title'>{noti.topic}</div>
           <div className='left'><Icon icon='arrow-left' size='2x' onClick={() => this.props.history.goBack()} /></div>
         </header>
-        <main>
-          {this.renderNotification()}
-        </main>
+        
+        {this.renderNotification()}
       </div>
     );
   }

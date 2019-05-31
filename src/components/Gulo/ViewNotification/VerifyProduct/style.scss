@@ -1,7 +1,7 @@
-.ScanNotExists{
+.VerifyProduct{
   main{
     margin-top: -20px;
-    
+
     & > .title{
       display: flex;
       flex-direction: row;
@@ -19,6 +19,8 @@
     }
     & > .img{
       height: 50vh;
+      &.smaller{height: 40vh;}
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -32,4 +34,35 @@
       font-size: 1.2em;
     }
   }
+  & .product-details{
+    & .product-name{
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      color: #f95d49;
+    }
+
+    & > div{
+      display: flex;
+      flex-direction: row;
+      & > div:first-child{
+        margin-left: 10px;
+        width: 20%;
+        font-weight: bold;
+      }
+    }
+  }
+
+  & .memo{
+    text-align: center;
+    & .product-name{
+      color: #f95d49;
+    }
+    & .desc{
+      font-size: 1.5em;
+    }
+    & .thanks{
+      margin-top: 50px;
+    }
+  }
+
 }
