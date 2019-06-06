@@ -10,6 +10,8 @@ class MyModal extends Component{
         isOpen={this.props.isOpen}
         ariaHideApp={false}
         className={`Modal ${this.props.className}`}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={this.props.close}
       >
           {this.props.children}
       </Modal>

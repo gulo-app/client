@@ -6,21 +6,56 @@ import {connect}        from 'react-redux';
 import Icon             from '../../Misc/Icon';
 import MenuToggler      from '../../Misc/MenuToggler';
 import Product          from './Product';
+import Modal            from  '../../Misc/MyModal';
+import ModalProduct     from  './ModalProduct';
+import OptionsToggler   from  './OptionsToggler';
+//import BarcodeScanner   from './BarcodeScanner';
 
 
 class ViewList extends Component{
+  constructor(props){
+    super(props);
+    this.state = {isScan: false, product_id: null};
+
+    this.toggleScan     = this.toggleScan.bind(this);
+    this.setProductID   = this.setProductID.bind(this);
+    this.shareWhatsapp  = this.shareWhatsapp.bind(this);
+  }
+  toggleScan(){
+    let isScan = !(this.props.isScan);
+    this.setState({isScan});
+  }
+  setProductID(product_id){
+    this.setState({product_id});
+  }
   renderListProducts(){
     let {list}  =  this.props;
     let products =_.map(list.products, (product) => {
-      return <Product key={product.id} product={product} />
+      return <Product key={product.id} product={product} onEdit={() => this.setProductID(product.id)} />
     });
     return products;
   }
+  shareWhatsapp(){
+    let text = '';
+    let {list}  =  this.props;
+
+    _.map(list.products, (p) => {
+      if(p.isChecked) return false;
+      text += `${p.product_name} \n`;
+    });
+    window.open(`https://wa.me/?text=${encodeURI(text)}`);
+  }
   render(){
     let {list} = this.props;
-    if(!list) return <Redirect to='/' />;
+    //if(!list) return <Redirect to='/' />;
+    if(!list) return null;
+    let {product_id} = this.state;
     return(
       <div className='Page ViewList'>
+        <Modal isOpen={product_id ? true : false} close={() => this.setProductID(null)}>
+          <ModalProduct product={list.products[product_id]} close={() => this.setProductID(null)} />
+        </Modal>
+
         <header>
           <div className='right'><MenuToggler /></div>
           <div className='title'>{list.list_name}</div>
@@ -30,7 +65,7 @@ class ViewList extends Component{
           {this.renderListProducts()}
         </main>
         <footer>
-          <button onClick={this.toggleIsNew}><Icon icon="plus" />רשימה חדשה </button>
+          <OptionsToggler shareWhatsapp={this.shareWhatsapp}/>
         </footer>
       </div>
     );

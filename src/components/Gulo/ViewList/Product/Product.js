@@ -15,8 +15,9 @@ class Product extends Component{
       <div className={`Product ${product.isChecked ? 'checked' : null}`}>
         <div className='product' onClick={() => this.toggleCheck()}>
           <div className='name'>{product.product_name}{Quantity}</div>
+          <div className='memo'>{product.memo}</div>
         </div>
-        <div className='options'><Icon icon='ellipsis-v' size='1x' /></div>
+        <div className='options' onClick={this.props.onEdit}><Icon icon='ellipsis-v' size='1x' /></div>
       </div>
     );
   }

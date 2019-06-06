@@ -12,10 +12,12 @@
   &{border-bottom: 1px solid #eee;}
 
   & .product{
-    display: flex;
-    flex-direction: row;
+    margin-right: 5px;
     & .name{
-      margin-right: 5px;
+      
+    }
+    & .memo{
+      color: #aaa;
     }
     & .quantity{
       margin-right: 5px;

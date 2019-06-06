@@ -20,8 +20,8 @@ class SideMenu extends Component{
   render(){
     let {isMenu, user, notifications} = this.props;
     //const newCounter    = _.filter(notifications, (noti) => noti.isNew===1).length;
-    const unReadCounter = _.filter(notifications, (noti) => noti.isRead===0).length;
-
+    let unReadCounter = _.filter(notifications, (noti) => noti.isRead===0).length;
+    
     //if(!isMenu) return null;
     return(
       <div className={`SideMenu ${!isMenu && 'hidden'}`}>
@@ -45,8 +45,11 @@ class SideMenu extends Component{
             </div>
             <div className='row' onClick={() => this.link('/notifications')}>
               <div className='icon notifications'>
-                  <span className='counter'>{unReadCounter}</span>
-                  <Icon faType='far' icon='comment' />
+                  {/*<span className='counter'>{unReadCounter}</span>*/}
+                  {unReadCounter>0 &&<div className='badger'>
+                    {unReadCounter}
+                  </div>}
+                  <Icon faType='far' icon='bell' />
               </div>
               <div className='title'>התראות</div>
             </div>

@@ -1,8 +1,10 @@
 import {FETCH_LISTS, INSERT_LIST, UPDATE_LIST, DELETE_LIST} from '../actions/list';
-import {UPDATE_LIST_PRODUCT}   from '../actions/list/product';
+import {UPDATE_LIST_PRODUCT, DELETE_LIST_PRODUCT}           from '../actions/list/product';
 import _ from 'lodash';
 
 export default function(state={}, action){
+  let newState;
+
   switch(action.type){
     case FETCH_LISTS:
       if(action.error){
@@ -32,6 +34,11 @@ export default function(state={}, action){
     case UPDATE_LIST_PRODUCT:
       let product = action.payload;
       return {...state, [product.list_id]: {...state[product.list_id], 'products': {...state[product.list_id]['products'], [product.id]:  product}}};
+
+    case DELETE_LIST_PRODUCT:
+      newState = _.cloneDeep(state);
+      delete newState[action.payload.list_id].products[action.payload.product_id];
+      return newState;
 
     default:
       return state;

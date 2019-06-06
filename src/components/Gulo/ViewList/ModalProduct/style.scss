@@ -1,0 +1,49 @@
+.ModalProduct{
+    & .product_name{
+      font-size: 1.2em;
+      text-align: center;
+    }
+    & .quantity{
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-size: 1.3em;
+      & .plus, & .minus{
+        color: #f95d49;
+      }
+    }
+    & .memo{
+      margin-top: 20px;
+      text-align: center;
+      & textarea{
+        width: 80%;
+        border-radius: 5px;
+        padding: 10px;
+        height: 40px;
+        font-family: inherit;
+        outline: none;
+      }
+    }
+
+    & footer{
+      margin-top: 20px;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: row;
+
+      & div{
+        width: 100%;
+        text-align: center;
+        & button{
+          background: transparent;
+          border: 0px;
+          color: #f95d49;
+          font-size: 1.2em;
+          font-weight: bold;
+          font-family: inherit;
+        }
+      }
+    }
+}

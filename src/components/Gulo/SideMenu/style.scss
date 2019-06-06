@@ -78,7 +78,7 @@
         align-items: center;
         margin-top: 25px;
         margin-right: -10px;
-        
+
         & .icon{
           margin-left: 15px;
           & > svg{
@@ -86,6 +86,21 @@
           }
           &.notifications{
             position: relative;
+            & > .badger{
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              width: 16px;
+              height: 16px;
+              border-radius: 50px;
+
+              color: white;
+              background: #f95d49;
+              font-size: 0.4em;
+              top: -2px; left: 17px;
+            }
 
             & > .counter{
               position: absolute;
