@@ -10,7 +10,7 @@
     }
   }
 
-  & .true{  
+  & .true{
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -28,7 +28,8 @@
         line-height: 35px;
         border: 1px solid #f95d49;
         border-radius: 10px;
-        left: 40px;
+        left: 40px;        
+        background: #fff;
       }
       & .icon{
         width:  35px;

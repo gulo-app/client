@@ -7,7 +7,7 @@ class ModalBarcode extends Component{
   constructor(props){
     super(props);
     const product = this.props.noti.product;
-    
+
     this.state = {
       barcode: this.props.barcode,
       product_name:     product ? product.product_name.split(' -')[0]  : '',

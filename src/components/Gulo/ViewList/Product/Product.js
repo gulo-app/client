@@ -5,8 +5,9 @@ import Icon             from '../../../Misc/Icon';
 
 class Product extends Component{
   toggleCheck(){
-    let {list_id, id} = this.props.product;
-    API_CALL('POST', `/list/${list_id}/product/${id}/toggleCheck`);
+    let {list_id, id, isManual} = this.props.product;
+    const p_route = isManual ? 'manual_product' : 'product';
+    API_CALL('POST', `/list/${list_id}/${p_route}/${id}/toggleCheck`);
   }
   render(){
     let {product} = this.props;

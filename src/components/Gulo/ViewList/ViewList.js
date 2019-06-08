@@ -1,59 +1,85 @@
 import React, {Component} from 'react';
 import './style.scss';
 import _ from 'lodash';
+import {API_CALL}       from '../../../consts';
 import {withRouter, Redirect}     from 'react-router-dom';
 import {connect}        from 'react-redux';
 import Icon             from '../../Misc/Icon';
 import MenuToggler      from '../../Misc/MenuToggler';
-import Product          from './Product';
 import Modal            from  '../../Misc/MyModal';
 import ModalProduct     from  './ModalProduct';
 import OptionsToggler   from  './OptionsToggler';
-//import BarcodeScanner   from './BarcodeScanner';
+import CatGroup         from  './CatGroup';
 
 
 class ViewList extends Component{
   constructor(props){
     super(props);
-    this.state = {isScan: false, product_id: null};
+    this.state = {product: null, isManual: false, isMenu: false};
 
-    this.toggleScan     = this.toggleScan.bind(this);
-    this.setProductID   = this.setProductID.bind(this);
+    this.toggleIsManual = this.toggleIsManual.bind(this);
+    this.toggleIsMenu   = this.toggleIsMenu.bind(this);
+    this.setProduct     = this.setProduct.bind(this);
     this.shareWhatsapp  = this.shareWhatsapp.bind(this);
+    this.clearList      = this.clearList.bind(this);
   }
-  toggleScan(){
-    let isScan = !(this.props.isScan);
-    this.setState({isScan});
+  toggleIsManual(){
+    let isManual = !(this.state.isManual);
+    this.setState({isManual});
   }
-  setProductID(product_id){
-    this.setState({product_id});
+  toggleIsMenu(){
+    let isMenu = !(this.state.isMenu);
+    this.setState({isMenu});
   }
-  renderListProducts(){
-    let {list}  =  this.props;
-    let products =_.map(list.products, (product) => {
-      return <Product key={product.id} product={product} onEdit={() => this.setProductID(product.id)} />
-    });
-    return products;
+  setProduct(product){
+    this.setState({product});
+  }
+  renderCatGroups(){
+    let {list}  =   this.props;
+    let cats  =   _.groupBy(list.products, 'category_id');
+    cats.manual = _.toArray(list.manual_products);
+    let Cats = _.map(cats, (cat,i) => {
+      return <CatGroup key={i} cat={cat} setProduct={this.setProduct}/>
+    })
+    return Cats;
   }
   shareWhatsapp(){
     let text = '';
     let {list}  =  this.props;
 
-    _.map(list.products, (p) => {
+    const arr = [..._.toArray(list.products), ..._.toArray(list.manual_products)];
+
+    text += `*הרשימה ${list.list_name} שותפה ממערכת גולו:* \n\n`
+    _.map(arr, (p) => {
       if(p.isChecked) return false;
-      text += `${p.product_name} \n`;
+      text += `${p.product_name}`;
+      if(p.quantity>1)
+        text += ` (${p.quantity})`;
+      text += '\n';
     });
     window.open(`https://wa.me/?text=${encodeURI(text)}`);
   }
+  clearList(){
+    var j = window.confirm("האם לנקות את תוכן הרשימה?");
+    if(j===false) return false;
+    let {list}  =  this.props;
+    API_CALL('POST', `/list/${list.list_id}/clear`);
+  }
   render(){
-    let {list} = this.props;
-    //if(!list) return <Redirect to='/' />;
-    if(!list) return null;
-    let {product_id} = this.state;
+    const {list,user} = this.props;
+    if(!list) return <Redirect to='/' />;
+    // if(!list) return null;
+
+    const {product, isManual, isMenu} = this.state;
+    const isCreator = list.creator.mail===user.mail ? true : false;
     return(
       <div className='Page ViewList'>
-        <Modal isOpen={product_id ? true : false} close={() => this.setProductID(null)}>
-          <ModalProduct product={list.products[product_id]} close={() => this.setProductID(null)} />
+        {isMenu && <div className='overlay'></div>}
+        <Modal isOpen={product ? true : false} close={() => this.setProduct(null)}>
+          <ModalProduct product={product} close={() => this.setProduct(null)} />
+        </Modal>
+        <Modal isOpen={isManual} close={() => this.toggleIsManual()}>
+          <ModalProduct product={null} list={list} close={() => this.toggleIsManual()} />
         </Modal>
 
         <header>
@@ -62,15 +88,18 @@ class ViewList extends Component{
           <div className='left'><Icon icon='arrow-left' size='2x' onClick={() => this.props.history.goBack()} /></div>
         </header>
         <main className='list-products'>
-          {this.renderListProducts()}
+          {this.renderCatGroups()}
         </main>
         <footer>
-          <OptionsToggler shareWhatsapp={this.shareWhatsapp}/>
+          <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator}
+              shareWhatsapp={this.shareWhatsapp} manualProduct={this.toggleIsManual}
+              clearList={this.clearList}
+          />
         </footer>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({lists}, ownProps) => {return {list: lists[ownProps.match.params.list_id]}};
+const mapStateToProps = ({lists, user}, ownProps) => {return {user, list: lists[ownProps.match.params.list_id]}};
 export default withRouter(connect(mapStateToProps)(ViewList));

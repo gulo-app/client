@@ -1,0 +1,18 @@
+.CatGroup{
+    & .header{
+      margin-bottom: 10px;
+      padding: 7px;
+      background: #eee;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      & .counter{
+
+      }
+    }
+}

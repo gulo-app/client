@@ -11,7 +11,7 @@ class List extends Component{
         <div className='title' onClick={this.props.showList}>
           <div className='name'>{list.list_name}</div>
           {/*<div className='total'><span className='total'>({list.total_products} פריטים)</span></div>*/}
-          <div className='mail'>{list.creator.mail}</div>
+          <div className='mail'>{list.creator.fullname}</div>
         </div>
         <div className='options' onClick={this.props.editList}><Icon icon='ellipsis-v' size='2x' /></div>
       </div>
