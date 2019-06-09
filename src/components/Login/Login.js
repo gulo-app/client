@@ -33,25 +33,37 @@ class Login extends Component{
 
     return(
       <div className="Login">
-          <div className="logo-container">
-            Login Page
-            <div className='types'>
-              <GoogleLogin
-                clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
-                render={renderProps => (
-                    <button onClick={renderProps.onClick}>This is my custom Google button</button>
-                )}
-                buttonText="Login"
-                onSuccess={this.responseGoogle}
-              />
-              <FacebookLogin
-                 appId="567336290432352"
-                 autoLoad={false}
-                 fields="name,email,picture"
-                 callback={this.responseFacebook}
-             />
-            </div>
+        <div className='top'>
+          <div className='logo'>
+            <div className='cover'/>
           </div>
+          <div className='wave'/>
+        </div>
+        <main>
+          <div className='welcome'>
+            <div className='primary'>Welcome</div>
+            <div className='secondary'>Sign in to discover the best of Gulo</div>
+          </div>
+          <div className='login-options'>
+            <GoogleLogin
+              clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
+              render={renderProps => (
+                  <div className='google circle' onClick={renderProps.onClick}></div>
+              )}
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+            />
+            <FacebookLogin
+               appId="567336290432352"
+               autoLoad={false}
+               fields="name,email,picture"
+               callback={this.responseFacebook}
+               cssClass="facebook circle"
+               textButton=""
+           />
+
+          </div>
+        </main>
       </div>
     );
   }
@@ -64,3 +76,28 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
+
+/*
+<div className="logo-container">
+  Login Page
+  <div className='types'>
+    <GoogleLogin
+      clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
+      render={renderProps => (
+          <button onClick={renderProps.onClick}>This is my custom Google button</button>
+      )}
+      buttonText="Login"
+      onSuccess={this.responseGoogle}
+    />
+    <FacebookLogin
+       appId="567336290432352"
+       autoLoad={false}
+       fields="name,email,picture"
+       callback={this.responseFacebook}
+       render={renderProps => (
+        <button onClick={renderProps.onClick}>This is my custom FB button</button>
+      )}
+   />
+  </div>
+</div>
+*/
