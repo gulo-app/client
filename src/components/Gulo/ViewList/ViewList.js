@@ -72,8 +72,8 @@ class ViewList extends Component{
   }
   render(){
     const {list,user} = this.props;
-    // if(!list) return <Redirect to='/' />;
-    if(!list) return null;
+    if(!list) return <Redirect to='/' />;
+    // if(!list) return null;
 
     const {product, isManual, isMenu} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;

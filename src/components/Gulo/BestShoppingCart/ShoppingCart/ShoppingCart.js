@@ -13,8 +13,8 @@ class ShoppingCart extends Component{
     this.setState({isExpand});
   }
   renderExpand(){
-    let {cart, products} = this.props;
-    let missing_products = _.differenceBy(products, cart.products, 'barcode');
+    let {cart} = this.props;
+    // let missing_products = _.differenceBy(products, cart.products, 'barcode');
 
     return (
       <div className='expand'>
@@ -29,7 +29,7 @@ class ShoppingCart extends Component{
         <div className='total'>
           <div className='row'>
             <div>סה"כ</div>
-            <div>{_.sumBy(cart.products, 'price')}</div>
+            <div>{cart.total_price}₪</div>
           </div>
         </div>
       </div>
