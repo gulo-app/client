@@ -15,6 +15,8 @@ class Login extends Component{
   }
   componentDidMount(){
     //this.props.verifyAuth();
+    if(window.FB)  //fix Facebook reLogin bug!
+      window.location.reload(true);
   }
   responseGoogle(response){
     console.log(response);

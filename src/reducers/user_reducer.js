@@ -12,6 +12,7 @@ export default function(state=null, action){
       }
       return action.payload;
     case LOGOUT:
+      console.log('logout');
       return null;
     default:
       return state;

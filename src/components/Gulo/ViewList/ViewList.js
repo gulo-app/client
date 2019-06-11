@@ -11,17 +11,17 @@ import ModalProduct     from  './ModalProduct';
 import OptionsToggler   from  './OptionsToggler';
 import CatGroup         from  './CatGroup';
 
-
 class ViewList extends Component{
   constructor(props){
     super(props);
     this.state = {product: null, isManual: false, isMenu: false};
 
-    this.toggleIsManual = this.toggleIsManual.bind(this);
-    this.toggleIsMenu   = this.toggleIsMenu.bind(this);
-    this.setProduct     = this.setProduct.bind(this);
-    this.shareWhatsapp  = this.shareWhatsapp.bind(this);
-    this.clearList      = this.clearList.bind(this);
+    this.toggleIsManual     =     this.toggleIsManual.bind(this);
+    this.toggleIsMenu       =     this.toggleIsMenu.bind(this);
+    this.setProduct         =     this.setProduct.bind(this);
+    this.shareWhatsapp      =     this.shareWhatsapp.bind(this);
+    this.clearList          =     this.clearList.bind(this);
+    this.goBestShoppingCart =     this.goBestShoppingCart.bind(this);
   }
   toggleIsManual(){
     let isManual = !(this.state.isManual);
@@ -65,10 +65,15 @@ class ViewList extends Component{
     let {list}  =  this.props;
     API_CALL('POST', `/list/${list.list_id}/clear`);
   }
+  goBestShoppingCart(){
+    let {list} = this.props;
+    let path = `/list/${list.list_id}/bestShoppingCart`;
+    this.props.history.push(path);
+  }
   render(){
     const {list,user} = this.props;
-    if(!list) return <Redirect to='/' />;
-    // if(!list) return null;
+    // if(!list) return <Redirect to='/' />;
+    if(!list) return null;
 
     const {product, isManual, isMenu} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;
@@ -93,7 +98,7 @@ class ViewList extends Component{
         <footer>
           <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator}
               shareWhatsapp={this.shareWhatsapp} manualProduct={this.toggleIsManual}
-              clearList={this.clearList}
+              clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
           />
         </footer>
       </div>

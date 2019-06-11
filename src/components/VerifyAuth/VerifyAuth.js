@@ -17,7 +17,7 @@ class VerifyAuth extends Component{
     if(this.props.user) return true;
     API_CALL('POST', '/user/login/auth-test').then((user) => {
       this.props.setUser(user);
-    }).catch((e) => {
+    }).catch((e) => {      
       this.props.history.push(`/login`);
     });
   }

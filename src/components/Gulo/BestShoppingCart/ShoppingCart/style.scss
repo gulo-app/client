@@ -1,0 +1,60 @@
+.ShoppingCart{
+  width: 250px;
+  height: auto;
+  border: 3px outset #f95d49;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #eee;
+  border-radius: 20px;
+  overflow: hidden;
+
+  & .logo{
+    width: 100%;
+    height: 90px;
+
+    & img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  & main{
+    padding: 15px!important;
+    & .row{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      & > div:last-child{
+        font-weight: bold;
+      }
+    }
+
+    & .expand{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed black;
+      & .row{
+        padding: 3px;
+
+        & > div:first-child{
+          width: 75%;
+          font-size: 0.7em;
+        }
+        & > div:last-child {
+          width: 25%;
+          text-align: left;
+          font-size: 0.8em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      & .total{
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed black;
+      }
+    }
+  }
+}
