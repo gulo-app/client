@@ -28,6 +28,8 @@ class BestShoppingCart extends Component{
   }
   renderShoppingCarts(){
     let {carts} = this.state;
+    carts = _.sortBy(carts, ['total_price'], 'asc');
+    carts = _.orderBy(carts, (cart) => cart.products.length, 'desc');
     return _.map(carts, (cart) => {
       return <ShoppingCart key={cart.shopping_cart_firm_id} cart={cart}
                 products={_.toArray(this.props.list.products)}
@@ -37,7 +39,7 @@ class BestShoppingCart extends Component{
   render(){
     let {list}  = this.props;
     if(!list) return null;
-    
+
     return(
       <div className='Page BestShoppingCart'>
         <header>

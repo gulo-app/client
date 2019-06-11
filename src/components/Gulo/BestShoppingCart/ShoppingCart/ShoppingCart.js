@@ -13,8 +13,8 @@ class ShoppingCart extends Component{
     this.setState({isExpand});
   }
   renderExpand(){
-    let {cart} = this.props;
-    // let missing_products = _.differenceBy(products, cart.products, 'barcode');
+    let {cart, products} = this.props;
+    let missing_products = _.differenceBy(products, cart.products, 'barcode');
 
     return (
       <div className='expand'>
@@ -22,14 +22,24 @@ class ShoppingCart extends Component{
           return (
             <div key={p.barcode} className='row'>
               <div>{p.product_name}</div>
-              <div>{p.price}₪</div>
+              <div>{p.price}</div>
             </div>
           );
         })}
+        <div className='missing-products'>
+          {_.map(missing_products, (p) => {
+            return (
+              <div key={p.barcode} className='row'>
+                <div>{p.product_name}</div>
+                <div>-</div>
+              </div>
+            );
+          })}
+        </div>
         <div className='total'>
           <div className='row'>
             <div>סה"כ</div>
-            <div>{cart.total_price}₪</div>
+            <div>₪{cart.total_price}</div>
           </div>
         </div>
       </div>
@@ -51,10 +61,12 @@ class ShoppingCart extends Component{
             <div>עלות:</div>
             <div>{cart.total_price} ₪</div>
           </div>
-          <div className='row'>
-            <div>מספר חוסרים: </div>
-            <div>{missing_products.length}</div>
-          </div>
+          {missing_products.length>0 &&
+            <div className='row'>
+              <div>מספר חוסרים: </div>
+              <div>{missing_products.length}</div>
+            </div>
+          }
           {isExpand && this.renderExpand()}
         </main>
       </div>
