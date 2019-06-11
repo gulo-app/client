@@ -6,17 +6,20 @@ import {googleLogin, facebookLogin, verifyAuth} from '../../actions/user/index.j
 import {Redirect} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import {API_CALL}       from '../../consts';
 
 class Login extends Component{
   constructor(props){
     super(props);
     this.responseGoogle   =   this.responseGoogle.bind(this);
     this.responseFacebook =   this.responseFacebook.bind(this);
+    this.autoLogin        =   this.autoLogin.bind(this);
   }
   componentDidMount(){
     //this.props.verifyAuth();
     if(window.FB)  //fix Facebook reLogin bug!
       window.location.reload(true);
+      console.log(`Login rendered`);
   }
   responseGoogle(response){
     console.log(response);
@@ -27,6 +30,18 @@ class Login extends Component{
   responseFacebook(response){
     console.log(response);
     this.props.facebookLogin(response);
+  }
+  autoLogin(){
+    // console.log('auto login');
+    // this.props.googleLogin({
+    //   email: 'flom.tomer@gmail.com',
+    //   tokenId: 'asgasjg',
+    //   familyName: "Flom",
+    //   givenName: "Tomer",
+    //   googleId: "112032329369010294243",
+    //   imageUrl: "https://lh3.googleusercontent.com/-ZFuW3cIz-zQ/AAAAAAAAAAI/AAAAAAAASdg/h8hqruIKXmQ/s96-c/photo.jpg",
+    //   name: "Tomer Flom"
+    // });
   }
 
   render(){

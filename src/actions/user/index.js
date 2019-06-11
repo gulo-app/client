@@ -35,7 +35,7 @@ export function setUser(user){
   };
 }
 
-export function logout(){  
+export function logout(){
   const req = API_CALL('POST', '/user/logout');
 
   return{
