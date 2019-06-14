@@ -18,12 +18,16 @@ class Login extends Component{
     this.responseGoogle   =   this.responseGoogle.bind(this);
     this.responseFacebook =   this.responseFacebook.bind(this);
     this.autoLogin        =   this.autoLogin.bind(this);
+    this.logOut           =   this.logOut.bind(this);
     this.googleLogin      =   this.googleLogin.bind(this);
     this.facebookLogin    =   this.facebookLogin.bind(this);
   }
   componentDidUpdate(prevProps){
-    if(prevProps.firebase===null && this.props.firebase)
+    if(prevProps.firebase===null && this.props.firebase){
       this.autoLogin();
+      this.logOut();
+    }
+
   }
   componentDidMount(){
     //this.props.verifyAuth();
@@ -32,6 +36,12 @@ class Login extends Component{
     // console.log(`Login rendered`);
     // this.autoLogin();
     // this.props.login.signOut();
+  }
+  logOut(){
+    let {firebase} = this.props;
+    firebase.auth().signOut().then((cb) => {
+      console.log(`singed out!!`);
+    })
   }
   responseGoogle(response){
     console.log(response);
