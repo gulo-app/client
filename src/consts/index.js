@@ -1,8 +1,16 @@
 const axios = require('axios');
 
-const URI = window.location.hostname.includes('heroku') || window.location.hostname.includes('montv10.net') ?
-                "https://montv10.net:9400" : "http://localhost:9400"; //https://gulo-service.herokuapp.com
+let URI;
 // const URI = "https://montv10.net:9400";
+if(process.env.NODE_ENV==='production')
+  URI = "http://montv10.net:9400";  // URI = "http://10.0.2.2:9400";
+if(window.location.hostname.includes('montv10.net'))
+  URI = "http://montv10.net:9400";
+
+if(!URI)
+  URI = "http://localhost:9400";
+
+// URI = "http://montv10.net:9400";
 console.log(`service-url: ${URI}`);
 
 const API_CALL = (verb, path, data) => {

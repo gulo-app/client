@@ -11,7 +11,7 @@
     & main{
       width: 0px;
       overflow: hidden;
-      transition: width $trans-duration;
+      transition: width $trans-duration;      
     }
   }
 
@@ -56,6 +56,8 @@
       & img{
         border-radius: 50px;
         margin-bottom: 10px;
+        width: 100px;
+        height: 100px;;
       }
       & .username{
         color: #f95d49;

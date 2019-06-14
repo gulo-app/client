@@ -4,9 +4,13 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {googleLogin, facebookLogin, verifyAuth} from '../../actions/user/index.js';
 import {Redirect} from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
-import {API_CALL}       from '../../consts';
+
+// import GoogleLogin from 'react-google-login';
+// import FacebookLogin from 'react-facebook-login';
+// import "@codetrix-studio/capacitor-google-auth";
+// import { Plugins } from '@capacitor/core';
+
+// import {API_CALL}       from '../../consts';
 
 class Login extends Component{
   constructor(props){
@@ -14,12 +18,20 @@ class Login extends Component{
     this.responseGoogle   =   this.responseGoogle.bind(this);
     this.responseFacebook =   this.responseFacebook.bind(this);
     this.autoLogin        =   this.autoLogin.bind(this);
+    this.googleLogin      =   this.googleLogin.bind(this);
+    this.facebookLogin    =   this.facebookLogin.bind(this);
+  }
+  componentDidUpdate(prevProps){
+    if(prevProps.firebase===null && this.props.firebase)
+      this.autoLogin();
   }
   componentDidMount(){
     //this.props.verifyAuth();
-    if(window.FB)  //fix Facebook reLogin bug!
-      window.location.reload(true);
-      console.log(`Login rendered`);
+    // if(window.FB)  //fix Facebook reLogin bug!
+    //   window.location.reload(true);
+    // console.log(`Login rendered`);
+    // this.autoLogin();
+    // this.props.login.signOut();
   }
   responseGoogle(response){
     console.log(response);
@@ -31,8 +43,30 @@ class Login extends Component{
     console.log(response);
     this.props.facebookLogin(response);
   }
-  autoLogin(){
-    // console.log('auto login');
+  async googleLogin(){
+    // let user = await Plugins.GoogleAuth.signIn();
+    // this.props.googleLogin(user.authentication);
+    let {firebase} = this.props;
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(googleProvider).then((user) => {
+      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+        this.props.googleLogin({idToken});
+      })
+    }).catch((e) => console.log(e.message));
+  }
+  async facebookLogin(){
+    // let user = await Plugins.GoogleAuth.signIn();
+    let {firebase} = this.props;
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(facebookProvider).then((user) => {
+      console.log(user);
+      //this.props.facebookLogin(user);
+    }).catch((e) => console.log(e.message));
+  }
+  async autoLogin(){
+    // API_CALL('POST', '/user/test', {data: 'moshe'}).then((cb) => {
+    //   console.log(cb);
+    // })
     // this.props.googleLogin({
     //   email: 'flom.tomer@gmail.com',
     //   tokenId: 'asgasjg',
@@ -62,31 +96,16 @@ class Login extends Component{
             <div className='secondary'>Sign in to discover the best of Gulo</div>
           </div>
           <div className='login-options'>
-            <GoogleLogin
-              clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
-              render={renderProps => (
-                  <div className='google circle' onClick={renderProps.onClick}></div>
-              )}
-              buttonText="Login"
-              onSuccess={this.responseGoogle}
-            />
-            <FacebookLogin
-               appId="567336290432352"
-               autoLoad={false}
-               fields="name,email,picture"
-               callback={this.responseFacebook}
-               cssClass="facebook circle"
-               textButton=""
-           />
-
+            <div className='google circle' onClick={this.googleLogin}></div>
+            <div className='facebook circle' onClick={this.facebookLogin}></div>
           </div>
         </main>
       </div>
     );
   }
 }
-function mapStateToProps({user}){
-  return {user};
+function mapStateToProps({user, firebase}){
+  return {user, firebase};
 }
 function mapDispatchToProps(dispatch){
   return bindActionCreators({facebookLogin, googleLogin, verifyAuth}, dispatch);
@@ -95,13 +114,10 @@ function mapDispatchToProps(dispatch){
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
 
 /*
-<div className="logo-container">
-  Login Page
-  <div className='types'>
     <GoogleLogin
       clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
       render={renderProps => (
-          <button onClick={renderProps.onClick}>This is my custom Google button</button>
+          <div className='google circle' onClick={renderProps.onClick}></div>
       )}
       buttonText="Login"
       onSuccess={this.responseGoogle}
@@ -111,10 +127,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(Login);
        autoLoad={false}
        fields="name,email,picture"
        callback={this.responseFacebook}
-       render={renderProps => (
-        <button onClick={renderProps.onClick}>This is my custom FB button</button>
-      )}
+       cssClass="facebook circle"
+       textButton=""
    />
-  </div>
-</div>
 */
