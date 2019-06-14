@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './style.scss';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {googleLogin, facebookLogin, verifyAuth} from '../../actions/user/index.js';
+import {firebaseLogin, verifyAuth} from '../../actions/user/index.js';
 import {Redirect} from 'react-router-dom';
 
 // import GoogleLogin from 'react-google-login';
@@ -15,8 +15,6 @@ import {Redirect} from 'react-router-dom';
 class Login extends Component{
   constructor(props){
     super(props);
-    this.responseGoogle   =   this.responseGoogle.bind(this);
-    this.responseFacebook =   this.responseFacebook.bind(this);
     this.autoLogin        =   this.autoLogin.bind(this);
     this.logOut           =   this.logOut.bind(this);
     this.googleLogin      =   this.googleLogin.bind(this);
@@ -43,34 +41,22 @@ class Login extends Component{
       console.log(`singed out!!`);
     })
   }
-  responseGoogle(response){
-    console.log(response);
-    const user = response.profileObj;
-    user.tokenId = response.tokenId;
-    this.props.googleLogin(user);
-  }
-  responseFacebook(response){
-    console.log(response);
-    this.props.facebookLogin(response);
-  }
   async googleLogin(){
-    // let user = await Plugins.GoogleAuth.signIn();
-    // this.props.googleLogin(user.authentication);
     let {firebase} = this.props;
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(googleProvider).then((user) => {
       firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        this.props.googleLogin({idToken});
+        this.props.firebaseLogin({idToken, email: user.user.email});
       })
     }).catch((e) => console.log(e.message));
   }
   async facebookLogin(){
-    // let user = await Plugins.GoogleAuth.signIn();
     let {firebase} = this.props;
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(facebookProvider).then((user) => {
-      console.log(user);
-      //this.props.facebookLogin(user);
+      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+        this.props.firebaseLogin({idToken, email: user.additionalUserInfo.profile.email});
+      })
     }).catch((e) => console.log(e.message));
   }
   async autoLogin(){
@@ -118,7 +104,7 @@ function mapStateToProps({user, firebase}){
   return {user, firebase};
 }
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({facebookLogin, googleLogin, verifyAuth}, dispatch);
+  return bindActionCreators({firebaseLogin, verifyAuth}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
