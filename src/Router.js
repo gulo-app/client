@@ -6,14 +6,27 @@ import {setFirebase} from './actions/firebase';
 import Login  from  './components/Login';
 import Gulo   from  './components/Gulo';
 
+import {Plugins} from '@capacitor/core';
+
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './firebaseConfig';
+
+// import '@ionic/core/css/core.css';
+// import '@ionic/core/css/ionic.bundle.css';
+
 firebase.initializeApp(firebaseConfig);
+const { StatusBar, Device } = Plugins
 
 class Router extends Component {
   componentDidMount(){
+    this.hideStatusBar();
     this.props.setFirebase(firebase);
+  }
+  async hideStatusBar(){
+    let deviceInfo = await Device.getInfo();
+    if(deviceInfo.platform!=='web')
+      StatusBar.hide();
   }
   render() {
     return (

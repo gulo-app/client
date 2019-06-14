@@ -1,9 +1,10 @@
-import {FIREBASE_LOGIN, VERIFY_AUTH, SET_USER, LOGOUT} from '../actions/user/index';
+import {FIREBASE_LOGIN, AUTO_LOGIN, VERIFY_AUTH, SET_USER, LOGOUT} from '../actions/user/index';
 
 export default function(state=null, action){
   switch(action.type){
     case VERIFY_AUTH:
     case SET_USER:
+    case AUTO_LOGIN:
     case FIREBASE_LOGIN:
       if(action.error){
         console.log("login failed");

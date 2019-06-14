@@ -7,13 +7,12 @@ import _ from 'lodash';
 class ListShares extends Component{
   constructor(props){
     super(props);
-    this.state = {status: false, users: [], value: '', isValid: true, isSelected: false}
+    this.state = {status: false, users: [], value: '', isValid: true}
 
     this.handleChange     =       this.handleChange.bind(this);
     this.toggleStatus     =       this.toggleStatus.bind(this);
     this.fetchUsers       =       this.fetchUsers.bind(this);
     this.validateInsert   =       this.validateInsert.bind(this);
-    this.renderOptions    =       this.renderOptions.bind(this);
   }
   componentDidMount(){
     this.fetchUsers()
@@ -69,7 +68,7 @@ class ListShares extends Component{
   }
   handleChange(e){
     let {value} = e.target;
-    this.setState({value, isValid: true, isSelected: false});
+    this.setState({value, isValid: true});
   }
   validateInsert(e){
     e.preventDefault();
@@ -89,24 +88,6 @@ class ListShares extends Component{
     if(!window.confirm(`האם להסיר מהקבוצה את המשתמש\n${share.fullname}?`));
     this.props.onRemove(share);
   }
-  renderOptions(){
-    let {value} = this.state;
-    if(value.length < 2 || this.state.isSelected)
-      return false;
-
-    let Options = _.map(this.state.users, (opt) => {
-      if(opt.fullname.includes(value) || opt.mail.includes(value))
-        return  <div  className='option' key={opt.user_id}
-                      onClick={() => this.optionSelected(opt)}>
-                  <div>{opt.fullname}</div>
-                  <div>{opt.mail}</div>
-                </div>
-    })
-    return Options;
-  }
-  optionSelected(opt){
-    this.setState({value: opt.mail, isSelected: true});
-  }
   render(){
     let {status, value, isValid} = this.state;
     let {isCreator} = this.props;
@@ -122,18 +103,12 @@ class ListShares extends Component{
             {status && <div><button className='btn-plus' onClick={this.validateInsert}><Icon icon='plus' /></button></div>}
           </div>
         }
-        {status &&
-          <div>
-            <input  className={`ltr ${isValid ? '' : 'invalid'}`} type='text' list="users"
-                    value={value} onChange={this.handleChange} placeholder="Search partner by Email or FullName..."
-            />
-            <div className='options'>
-              {this.renderOptions()}
-            </div>
-          </div>
-        }
+        {status && <input className={`ltr ${isValid ? '' : 'invalid'}`} type='text' list="users" value={value} onChange={this.handleChange} placeholder="Search partner by Email or FullName..." />}
 
         {!status && this.renderSharesList()}
+        <datalist id="users">
+          {this.renderDataListOptions()}
+        </datalist>
       </div>
     )
   }

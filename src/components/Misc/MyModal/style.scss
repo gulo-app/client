@@ -59,7 +59,7 @@
         padding: 5px 0px;
       }
 
-      & input{
+      & input, & select{
         width: 100%;
         border: 0px;
         border-bottom: 2px solid #f95d49;
@@ -70,6 +70,9 @@
           direction: ltr;
           text-align: left;
         }
+      }
+      & select{
+        background-color: transparent;
       }
     }
 

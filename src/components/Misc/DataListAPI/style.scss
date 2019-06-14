@@ -1,3 +1,14 @@
 .DataListAPI{
+  & .options{
+    & .option{
+      text-align: right;
+      direction: rtl;
+      padding: 5px;
 
+      &.english{
+        text-align: left!important;
+        direction: ltr;
+      }
+    }
+  }
 }

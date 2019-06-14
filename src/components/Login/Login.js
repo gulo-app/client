@@ -5,41 +5,16 @@ import {bindActionCreators} from 'redux';
 import {firebaseLogin, verifyAuth} from '../../actions/user/index.js';
 import {Redirect} from 'react-router-dom';
 
-// import GoogleLogin from 'react-google-login';
-// import FacebookLogin from 'react-facebook-login';
-// import "@codetrix-studio/capacitor-google-auth";
-// import { Plugins } from '@capacitor/core';
-
-// import {API_CALL}       from '../../consts';
-
 class Login extends Component{
   constructor(props){
     super(props);
-    this.autoLogin        =   this.autoLogin.bind(this);
-    this.logOut           =   this.logOut.bind(this);
     this.googleLogin      =   this.googleLogin.bind(this);
     this.facebookLogin    =   this.facebookLogin.bind(this);
   }
   componentDidUpdate(prevProps){
     if(prevProps.firebase===null && this.props.firebase){
-      this.autoLogin();
-      this.logOut();
-    }
 
-  }
-  componentDidMount(){
-    //this.props.verifyAuth();
-    // if(window.FB)  //fix Facebook reLogin bug!
-    //   window.location.reload(true);
-    // console.log(`Login rendered`);
-    // this.autoLogin();
-    // this.props.login.signOut();
-  }
-  logOut(){
-    let {firebase} = this.props;
-    firebase.auth().signOut().then((cb) => {
-      console.log(`singed out!!`);
-    })
+    }
   }
   async googleLogin(){
     let {firebase} = this.props;
@@ -58,20 +33,6 @@ class Login extends Component{
         this.props.firebaseLogin({idToken, email: user.additionalUserInfo.profile.email});
       })
     }).catch((e) => console.log(e.message));
-  }
-  async autoLogin(){
-    // API_CALL('POST', '/user/test', {data: 'moshe'}).then((cb) => {
-    //   console.log(cb);
-    // })
-    // this.props.googleLogin({
-    //   email: 'flom.tomer@gmail.com',
-    //   tokenId: 'asgasjg',
-    //   familyName: "Flom",
-    //   givenName: "Tomer",
-    //   googleId: "112032329369010294243",
-    //   imageUrl: "https://lh3.googleusercontent.com/-ZFuW3cIz-zQ/AAAAAAAAAAI/AAAAAAAASdg/h8hqruIKXmQ/s96-c/photo.jpg",
-    //   name: "Tomer Flom"
-    // });
   }
 
   render(){
@@ -108,22 +69,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
-
-/*
-    <GoogleLogin
-      clientId="180978526897-8o5c4k9vakqt2eqfbgd2u9ng5jaobl4j.apps.googleusercontent.com"
-      render={renderProps => (
-          <div className='google circle' onClick={renderProps.onClick}></div>
-      )}
-      buttonText="Login"
-      onSuccess={this.responseGoogle}
-    />
-    <FacebookLogin
-       appId="567336290432352"
-       autoLoad={false}
-       fields="name,email,picture"
-       callback={this.responseFacebook}
-       cssClass="facebook circle"
-       textButton=""
-   />
-*/

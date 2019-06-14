@@ -24,7 +24,7 @@ class ModalBarcode extends Component{
     this.product_name.focus();
   }
   handleChange(e){
-    let {name, value} = e.target;
+    let {name, value} = e.target;    
     let stateObj = {}; stateObj[name] = value;
     this.setState(stateObj);
   }
@@ -73,7 +73,7 @@ class ModalBarcode extends Component{
             <div className='multiple'>
               <div><input type='number' name='capacity' value={state.capacity} onChange={this.handleChange} placeholder='650' required /></div>
               <div>
-                <SelectAPI api={{verb:'GET', url: '/db/capacity_units'}} placeholder='מל' required
+                <SelectAPI api={{verb:'GET', url: '/db/capacity_units'}} placeholder='יחידה' required
                     name='capacity_unit_id' value={state.capacity_unit_id} onChange={this.handleChange}
                 />
               </div>

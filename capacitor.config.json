@@ -2,11 +2,5 @@
   "appId": "com.gulo.app",
   "appName": "Gulo",
   "bundledWebRuntime": false,
-  "webDir": "build",
-  "plugins": {
-    "CapacitorFirebaseAuth": {
-      "providers": ["google.com"],
-      "nativeAuth": false
-    }
-  }
+  "webDir": "build"  
 }

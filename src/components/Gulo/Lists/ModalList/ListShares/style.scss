@@ -47,4 +47,15 @@
       }
     }
   }
+
+  & .options{
+    margin-top: 5px;
+    & .option{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 5px;
+      font-size: 1.1em;
+    }
+  }
 }

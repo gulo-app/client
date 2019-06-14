@@ -1,8 +1,7 @@
 import {API_CALL} from '../../consts';
 
 export const FIREBASE_LOGIN   =   'FIREBASE_LOGIN';
-export const GOOGLE_LOGIN     =   'GOOGLE_LOGIN';
-export const FACEBOOK_LOGIN   =   'FACEBOOK_LOGIN';
+export const AUTO_LOGIN       =   'AUTO_LOGIN';
 export const VERIFY_AUTH      =   'VERIFY_AUTH';
 export const SET_USER         =   'SET_USER';
 export const LOGOUT           =   'LOGOUT';
@@ -17,21 +16,14 @@ export function firebaseLogin(user){
   };
 }
 
-// export function googleLogin(user){
-//   const req = API_CALL('POST', '/user/login/google', user);
-//
-//   return{
-//     type: GOOGLE_LOGIN,
-//     payload: req
-//   };
-// }
-// export function facebookLogin(user){
-//   const req = API_CALL('POST', '/user/login/facebook', user);
-//   return{
-//     type: FACEBOOK_LOGIN,
-//     payload: req
-//   };
-// }
+export function autoLogin(email){
+  const req = API_CALL('POST', '/user/login/auto-login', {email});
+
+  return{
+    type: AUTO_LOGIN,
+    payload: req
+  };
+}
 
 export function verifyAuth(){
   const user = API_CALL('POST', '/user/login/auth-test');

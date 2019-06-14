@@ -27,7 +27,6 @@ class SelectAPI extends Component{
     let Options = _.map(this.state.data, (opt) => {
       return <option key={opt.id} value={opt.id}>{opt.name}</option>
     })
-    Options.unshift(<option key={0} value="" disabled>{this.props.placeholder}</option>);
     return Options;
   }
   render(){
@@ -35,6 +34,7 @@ class SelectAPI extends Component{
     return(
       <select className={`SelectAPI ${!value && 'disabled'}`} value={value} name={name}
               onChange={this.props.onChange} required={this.props.required}>
+        <option value="" disabled>{this.props.placeholder}</option>;
         {this.renderOptions()}
       </select>
     );
