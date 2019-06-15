@@ -11,18 +11,25 @@ import Icon                 from '../../Misc/Icon';
 class SideMenu extends Component{
   constructor(props){
     super(props);
-    this.link = this.link.bind(this);
+    this.link     =   this.link.bind(this);
+    this.logout   =   this.logout.bind(this);
   }
   link(to){
     this.props.history.push(to);
     this.props.toggleMenu();
   }
+  logout(){
+    this.props.firebase.auth().signOut().then(() => {
+      console.log(`signed out from firebase!`);
+      this.props.logout();
+    })
+  }
   render(){
     let {isMenu, user, notifications} = this.props;
     //const newCounter    = _.filter(notifications, (noti) => noti.isNew===1).length;
     let unReadCounter = _.filter(notifications, (noti) => noti.isRead===0).length;
-    
-    //if(!isMenu) return null;
+
+    //if(!isMenu) return null;    
     return(
       <div className={`SideMenu ${!isMenu && 'hidden'}`}>
         <div className='overlay' onClick={() => this.props.toggleMenu()}></div>
@@ -53,7 +60,7 @@ class SideMenu extends Component{
               </div>
               <div className='title'>התראות</div>
             </div>
-            <div className='row' onClick={() => this.props.logout()}>
+            <div className='row' onClick={() => this.logout()}>
               <div className='icon'><Icon icon='power-off' /></div>
               <div className='title'>התנתקות</div>
             </div>
@@ -68,6 +75,6 @@ class SideMenu extends Component{
   }
 }
 
-const mapStateToProps = ({user, isMenu, notifications}) => {return {user, isMenu, notifications} };
+const mapStateToProps = ({user, isMenu, notifications, firebase}) => {return {user, isMenu, notifications, firebase} };
 
 export default withRouter(connect(mapStateToProps, {logout, toggleMenu})(SideMenu));

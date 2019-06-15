@@ -30,6 +30,10 @@ class OptionsToggler extends Component{
           <div className='desc'>שיתוף רשימה</div>
           <div className='icon'><Icon icon='whatsapp' faType='fab' /></div>
         </div>
+        <div className='option' onClick={() => {this.props.toggle(); this.props.scanBarcode();}}>
+          <div className='icon'><Icon icon='barcode' /></div>
+          <div className='desc'>סריקת ברקוד</div>
+        </div>
         <div className='option' onClick={() => {this.props.toggle(); this.props.manualProduct();}}>
           <div className='icon'><Icon icon='plus' /></div>
           <div className='desc'>הוספה ידנית</div>

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 import _ from 'lodash';
+import {BarcodeScanner} from '@ionic-native/barcode-scanner';
+import {Plugins}        from '@capacitor/core';
 import {API_CALL}       from '../../../consts';
 import {withRouter, Redirect}     from 'react-router-dom';
 import {connect}        from 'react-redux';
@@ -15,6 +17,7 @@ class ViewList extends Component{
   constructor(props){
     super(props);
     this.state = {product: null, isManual: false, isMenu: false};
+    this.barcodeScanner = BarcodeScanner;
 
     this.toggleIsManual     =     this.toggleIsManual.bind(this);
     this.toggleIsMenu       =     this.toggleIsMenu.bind(this);
@@ -22,6 +25,7 @@ class ViewList extends Component{
     this.shareWhatsapp      =     this.shareWhatsapp.bind(this);
     this.clearList          =     this.clearList.bind(this);
     this.goBestShoppingCart =     this.goBestShoppingCart.bind(this);
+    this.scanBarcode        =     this.scanBarcode.bind(this);
   }
   toggleIsManual(){
     let isManual = !(this.state.isManual);
@@ -70,10 +74,22 @@ class ViewList extends Component{
     let path = `/list/${list.list_id}/bestShoppingCart`;
     this.props.history.push(path);
   }
+  async scanBarcode(){
+    const deviceInfo = await Plugins.Device.getInfo();
+    if(deviceInfo.platform!=='ios' && deviceInfo.platform!=='android')
+      return false;
+
+    let {list: {list_id}} = this.props;
+    this.barcodeScanner.scan().then(barcode => {
+      if(barcode.cancelled)
+        return false;
+      API_CALL('POST', `/device/scanByMobile/${list_id}/${barcode.text}`);
+    }).catch(err => console.log("Error", err));
+  }
   render(){
     const {list,user} = this.props;
-    if(!list) return <Redirect to='/' />;
-    // if(!list) return null;
+    // if(!list) return <Redirect to='/' />;
+    if(!list) return null;
 
     const {product, isManual, isMenu} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;
@@ -99,6 +115,7 @@ class ViewList extends Component{
           <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator}
               shareWhatsapp={this.shareWhatsapp} manualProduct={this.toggleIsManual}
               clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
+              scanBarcode={this.scanBarcode}
           />
         </footer>
       </div>

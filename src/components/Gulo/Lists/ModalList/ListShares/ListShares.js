@@ -95,7 +95,7 @@ class ListShares extends Component{
       return false;
 
     let Options = _.map(this.state.users, (opt) => {
-      if(opt.fullname.includes(value) || opt.mail.includes(value))
+      if(opt.fullname.toLowerCase().includes(value.toLowerCase()) || opt.mail.toLowerCase().includes(value.toLowerCase()))
         return  <div  className='option' key={opt.user_id}
                       onClick={() => this.optionSelected(opt)}>
                   <div>{opt.fullname}</div>
@@ -124,9 +124,8 @@ class ListShares extends Component{
         }
         {status &&
           <div>
-            <input  className={`ltr ${isValid ? '' : 'invalid'}`} type='text' list="users"
-                    value={value} onChange={this.handleChange} placeholder="Search partner by Email or FullName..."
-            />
+            <input type='text' value={value} className={`ltr ${isValid ? '' : 'invalid'}`}
+                  onChange={this.handleChange} placeholder='Search by Mail or Name...' />
             <div className='options'>
               {this.renderOptions()}
             </div>
@@ -140,3 +139,11 @@ class ListShares extends Component{
 }
 
 export default ListShares
+/*
+<input  className={`ltr ${isValid ? '' : 'invalid'}`}  type='text'
+        value={value} onChange={this.handleChange} placeholder="Search partner by Fullname or Email..."
+/>
+<div className='options'>
+  {this.renderOptions()}
+</div>
+*/

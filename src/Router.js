@@ -12,9 +12,6 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './firebaseConfig';
 
-// import '@ionic/core/css/core.css';
-// import '@ionic/core/css/ionic.bundle.css';
-
 firebase.initializeApp(firebaseConfig);
 const { StatusBar, Device } = Plugins
 

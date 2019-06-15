@@ -43,8 +43,7 @@ class ViewNotification extends Component{
     this.props.history.goBack();
   }
   render(){
-    let {noti} = this.props;
-    console.log(noti);
+    let {noti} = this.props;    
     // if(!noti) return <Redirect to='/notifications' />;
     if(!noti) return null;
     return(
@@ -54,7 +53,7 @@ class ViewNotification extends Component{
           <div className='title'>{noti.topic}</div>
           <div className='left'><Icon icon='arrow-left' size='2x' onClick={() => this.props.history.goBack()} /></div>
         </header>
-        
+
         {this.renderNotification()}
       </div>
     );
