@@ -7,6 +7,7 @@ export const CONFIRM_NOTIFICATION   =   'CONFIRM_NOTIFICATION';
 export const INSERT_NOTIFICATION    =   'INSERT_NOTIFICATION';
 export const DELETE_NOTIFICATION    =   'DELETE_NOTIFICATION';
 export const UPDATE_NOTIFICATION    =   'UPDATE_NOTIFICATION';
+export const UPDATE_FIREBASE_NOTIFICATION_TOKEN = 'UPDATE_FIREBASE_NOTIFICATION_TOKEN';
 
 export function fetchNotifications(){
   const req = API_CALL('GET', '/notification');
@@ -59,5 +60,13 @@ export function updateNotification(notification){
   return {
     type: UPDATE_NOTIFICATION,
     payload: notification
+  }
+}
+
+export function updateFirebaseNotificationToken(token){
+  const req = API_CALL('POST', `/notification/updateFirebaseNotificationToken`, {token});
+  return {
+    type: UPDATE_FIREBASE_NOTIFICATION_TOKEN,
+    payload: req
   }
 }

@@ -53,6 +53,9 @@ class ModalProduct extends Component{
   }
 
   delete(){
+    if(!window.confirm('האם למחוק מוצר זה?'))
+      return false;
+    
     let {product} = this.props;
     if(!product.id)
       return false;

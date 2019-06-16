@@ -4,7 +4,7 @@ import _ from 'lodash';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {Plugins}        from '@capacitor/core';
 import {API_CALL}       from '../../../consts';
-import {withRouter, Redirect}     from 'react-router-dom';
+import {withRouter}     from 'react-router-dom';
 import {connect}        from 'react-redux';
 import Icon             from '../../Misc/Icon';
 import MenuToggler      from '../../Misc/MenuToggler';
@@ -16,9 +16,11 @@ import CatGroup         from  './CatGroup';
 class ViewList extends Component{
   constructor(props){
     super(props);
-    this.state = {product: null, isManual: false, isMenu: false};
+    this.state = {product: null, isManual: false, isMenu: false, platform: ''};
     this.barcodeScanner = BarcodeScanner;
 
+    this.checkListID        =     this.checkListID.bind(this);
+    this.setPlatform        =     this.setPlatform.bind(this);
     this.toggleIsManual     =     this.toggleIsManual.bind(this);
     this.toggleIsMenu       =     this.toggleIsMenu.bind(this);
     this.setProduct         =     this.setProduct.bind(this);
@@ -26,6 +28,19 @@ class ViewList extends Component{
     this.clearList          =     this.clearList.bind(this);
     this.goBestShoppingCart =     this.goBestShoppingCart.bind(this);
     this.scanBarcode        =     this.scanBarcode.bind(this);
+  }
+  componentDidMount(){
+    this.setPlatform();
+    setTimeout(this.checkListID, 1000);
+  }
+  async checkListID(){
+      let {list} = this.props;
+      if(!list)
+        this.props.history.push('/');
+  }
+  async setPlatform(){
+    const deviceInfo = await Plugins.Device.getInfo();
+    this.setState({platform: deviceInfo.platform});
   }
   toggleIsManual(){
     let isManual = !(this.state.isManual);
@@ -75,8 +90,7 @@ class ViewList extends Component{
     this.props.history.push(path);
   }
   async scanBarcode(){
-    const deviceInfo = await Plugins.Device.getInfo();
-    if(deviceInfo.platform!=='ios' && deviceInfo.platform!=='android')
+    if(this.state.platform!=='android' && this.state.platform!=='ios')
       return false;
 
     let {list: {list_id}} = this.props;
@@ -88,10 +102,9 @@ class ViewList extends Component{
   }
   render(){
     const {list,user} = this.props;
-    // if(!list) return <Redirect to='/' />;
     if(!list) return null;
 
-    const {product, isManual, isMenu} = this.state;
+    const {product, isManual, isMenu, platform} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;
     return(
       <div className='Page ViewList'>
@@ -112,7 +125,7 @@ class ViewList extends Component{
           {this.renderCatGroups()}
         </main>
         <footer>
-          <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator}
+          <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator} platform={platform}
               shareWhatsapp={this.shareWhatsapp} manualProduct={this.toggleIsManual}
               clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
               scanBarcode={this.scanBarcode}

@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 let URI;
-// const URI = "https://montv10.net:9400";
 if(process.env.NODE_ENV==='production')
   URI = "http://montv10.net:9400";  // URI = "http://10.0.2.2:9400";
 if(window.location.hostname.includes('montv10.net'))
@@ -10,7 +9,6 @@ if(window.location.hostname.includes('montv10.net'))
 if(!URI)
   URI = "http://localhost:9400";
 
-// URI = "http://montv10.net:9400";
 console.log(`service-url: ${URI}`);
 
 const API_CALL = (verb, path, data) => {

@@ -1,3 +1,7 @@
 
-  * install "cordova-plugin-inappbrowser": "^3.0.0" to fix Login Popup bug
-  * <preference name="OverrideUserAgent" value="Mozilla/5.0 Google" />
+  @ionic-native/core": "^5.8.0
+
+  install "cordova-plugin-inappbrowser": "^3.0.0"  //to fix login popup problem
+
+  <preference name="OverrideUserAgent" value="Mozilla/5.0 Google" />
+    to android/app/src/main/res/xml/config.xml

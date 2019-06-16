@@ -12,7 +12,7 @@ class OptionsToggler extends Component{
   }
 
   renderTrue(){
-    const {isCreator} = this.props;
+    const {isCreator, platform} = this.props;
     return (
       <div className='true'>
         <div className='expand'><button className='expand' onClick={this.props.toggle}><Icon icon="times" /></button></div>
@@ -30,10 +30,12 @@ class OptionsToggler extends Component{
           <div className='desc'>שיתוף רשימה</div>
           <div className='icon'><Icon icon='whatsapp' faType='fab' /></div>
         </div>
-        <div className='option' onClick={() => {this.props.toggle(); this.props.scanBarcode();}}>
-          <div className='icon'><Icon icon='barcode' /></div>
-          <div className='desc'>סריקת ברקוד</div>
-        </div>
+        {(platform==='ios' || platform==='android') &&
+          <div className='option' onClick={() => {this.props.toggle(); this.props.scanBarcode();}}>
+            <div className='icon'><Icon icon='barcode' /></div>
+            <div className='desc'>סריקת ברקוד</div>
+          </div>
+        }
         <div className='option' onClick={() => {this.props.toggle(); this.props.manualProduct();}}>
           <div className='icon'><Icon icon='plus' /></div>
           <div className='desc'>הוספה ידנית</div>

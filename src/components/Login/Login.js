@@ -21,7 +21,7 @@ class Login extends Component{
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(googleProvider).then((user) => {
       firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        this.props.firebaseLogin({idToken, email: user.user.email});
+        this.props.firebaseLogin({idToken}); //email: user.additionalUserInfo.profile.email
       })
     }).catch((e) => console.log(e.message));
   }
@@ -30,9 +30,13 @@ class Login extends Component{
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(facebookProvider).then((user) => {
       firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        this.props.firebaseLogin({idToken, email: user.additionalUserInfo.profile.email});
+        this.props.firebaseLogin({idToken}); //email: user.additionalUserInfo.profile.email
       })
-    }).catch((e) => console.log(e.message));
+    }).catch((e) => {
+      console.log(e.message);
+      if(e.code==='auth/account-exists-with-different-credential')
+        alert('מייל זה כבר משוייך להתחברות מגוגל. \nיש להתחבר באמצעות גוגל');
+    });
   }
 
   render(){

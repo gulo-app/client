@@ -6,11 +6,16 @@ import {updateListProduct, deleteListProduct}                   from '../../../a
 import {updateListManualProduct, deleteListManualProduct}       from '../../../actions/list/manual_product';
 import {subscribeSocket}                                        from '../../../actions/socket';
 import {insertNotification, deleteNotification}                 from '../../../actions/notification';
+import {updateFirebaseNotificationToken}                        from '../../../actions/notification';
 import {URI}                                                    from '../../../consts'
+import { Plugins }                                              from '@capacitor/core';
 
 class SocketListener extends Component{
   constructor(props){
     super(props);
+
+    this.pushNotifications =  Plugins.PushNotifications;
+    this.device            =  Plugins.Device;
     this.listen = this.listen.bind(this);
   }
   componentDidMount(){
@@ -20,7 +25,7 @@ class SocketListener extends Component{
     if(!prevProps.user && this.props.user)
       this.listen();
   }
-  listen(){
+  async listen(){
     if(!this.props.user) return false;
     let {subscribeSocket} = this.props;
     const socket = io(URI);
@@ -40,8 +45,16 @@ class SocketListener extends Component{
       socket.on('newNotification',    (newNotification) => this.props.insertNotification(newNotification));
       socket.on('updateNotification', (notification)    => this.props.insertNotification(notification)); //in reducer: update&insert functionallity is the same.
       socket.on('deleteNotification', (notification_id) => this.props.deleteNotification(notification_id));
-
     });
+
+    let deviceInfo = await this.device.getInfo();
+    if(deviceInfo.platform==='android' || deviceInfo.platform==='ios'){
+      this.pushNotifications.register();
+      this.pushNotifications.addListener('registration', (token) => {
+        this.props.updateFirebaseNotificationToken(token.value);
+      })
+    }
+
   }
 
   render(){return null}
@@ -49,4 +62,4 @@ class SocketListener extends Component{
 
 const mapStateToProps = ({user, socket}) => {return {user, socket} };
 
-export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, deleteListProduct, updateList, deleteList, insertNotification, deleteNotification, updateListManualProduct, deleteListManualProduct})(SocketListener);
+export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, deleteListProduct, updateList, deleteList, insertNotification, deleteNotification, updateListManualProduct, deleteListManualProduct, updateFirebaseNotificationToken})(SocketListener);
