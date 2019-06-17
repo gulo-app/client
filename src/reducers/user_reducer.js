@@ -11,8 +11,7 @@ export default function(state=null, action){
         return null;
       }
       return action.payload;
-    case LOGOUT:
-      console.log('logout');
+    case LOGOUT:      
       return null;
     default:
       return state;

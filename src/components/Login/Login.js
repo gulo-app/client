@@ -3,19 +3,22 @@ import './style.scss';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {firebaseLogin, verifyAuth} from '../../actions/user/index.js';
-import {Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import Storage    from '../../plugins/Storage';
 
 class Login extends Component{
   constructor(props){
     super(props);
+
     this.googleLogin      =   this.googleLogin.bind(this);
     this.facebookLogin    =   this.facebookLogin.bind(this);
+    this.login            =   this.login.bind(this);
   }
   componentDidUpdate(prevProps){
-    if(prevProps.firebase===null && this.props.firebase){
-
-    }
+    if(!prevProps.user && this.props.user)
+      this.login();
   }
+
   async googleLogin(){
     let {firebase} = this.props;
     const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -38,11 +41,15 @@ class Login extends Component{
         alert('מייל זה כבר משוייך להתחברות מגוגל. \nיש להתחבר באמצעות גוגל');
     });
   }
+  async login(){
+    let {user} = this.props;
+
+    await Storage.setItem('authToken', user.authToken);
+    await Storage.setItem('mail', user.mail);    
+    this.props.history.push('/lists');
+  }
 
   render(){
-    const user = this.props.user;
-    if(user) return <Redirect to='/lists' />;
-
     return(
       <div className="Login">
         <div className='top'>
@@ -72,4 +79,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({firebaseLogin, verifyAuth}, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login));

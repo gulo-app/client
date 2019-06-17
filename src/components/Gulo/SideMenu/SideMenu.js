@@ -19,17 +19,17 @@ class SideMenu extends Component{
     this.props.toggleMenu();
   }
   logout(){
-    this.props.firebase.auth().signOut().then(() => {
-      console.log(`signed out from firebase!`);
-      this.props.logout();
-    })
+    // this.props.firebase.auth().signOut().then(() => {
+    //   console.log(`signed out from firebase!`);
+    //   this.props.logout();
+    // })
   }
   render(){
     let {isMenu, user, notifications} = this.props;
     //const newCounter    = _.filter(notifications, (noti) => noti.isNew===1).length;
     let unReadCounter = _.filter(notifications, (noti) => noti.isRead===0).length;
 
-    //if(!isMenu) return null;    
+    //if(!isMenu) return null;
     return(
       <div className={`SideMenu ${!isMenu && 'hidden'}`}>
         <div className='overlay' onClick={() => this.props.toggleMenu()}></div>
@@ -60,7 +60,7 @@ class SideMenu extends Component{
               </div>
               <div className='title'>התראות</div>
             </div>
-            <div className='row' onClick={() => this.logout()}>
+            <div className='row' onClick={() => this.props.logout(this.props.firebase)}>
               <div className='icon'><Icon icon='power-off' /></div>
               <div className='title'>התנתקות</div>
             </div>

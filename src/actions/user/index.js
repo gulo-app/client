@@ -6,7 +6,6 @@ export const VERIFY_AUTH      =   'VERIFY_AUTH';
 export const SET_USER         =   'SET_USER';
 export const LOGOUT           =   'LOGOUT';
 
-
 export function firebaseLogin(user){
   const req = API_CALL('POST', '/user/login/firebase', user);
 
@@ -39,9 +38,15 @@ export function setUser(user){
   };
 }
 
-export function logout(){
-  const req = API_CALL('POST', '/user/logout');
+export async function logout(firebase){
+  await firebase.auth().signOut().then(() => {
+    console.log(`signed out from firebase!`);
+  });
+  const storage = window.localStorage;
+  await storage.removeItem('authToken');
+  await storage.removeItem('mail');
 
+  const req = API_CALL('POST', '/user/logout');
   return{
     type: LOGOUT,
     payload: req

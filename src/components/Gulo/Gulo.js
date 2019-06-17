@@ -5,6 +5,7 @@ import SocketListener from './SocketListener';
 
 import {Route, Switch}                  from  'react-router-dom';
 import {connect}                        from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {fetchLists}         from '../../actions/list';
 import {fetchNotifications} from '../../actions/notification';
 
@@ -18,17 +19,27 @@ import ViewNotification from './ViewNotification';
 import BestShoppingCart from './BestShoppingCart';
 
 class Gulo extends Component{
+  constructor(props){
+    super(props);
+    this.fetchData = this.fetchData.bind(this);
+  }
   componentDidMount(){
+    this.fetchData();
+  }
+  componentDidUpdate(prevProps){
+    if(!prevProps.user && this.props.user)
+      this.fetchData();
+  }
+  fetchData(){
+    if(!this.props.user) return false;
     this.props.fetchLists();
     this.props.fetchNotifications();
   }
-
   render(){
     const {user} = this.props;
     if(!user) return <VerifyAuth/>
     return(
       <div className='Gulo'>
-        <VerifyAuth/>
         <SocketListener />
         <SideMenu />
         <Switch>
@@ -44,5 +55,8 @@ class Gulo extends Component{
 }
 
 const mapStateToProps = ({user}) => {return {user} };
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchLists, fetchNotifications}, dispatch);
+}
 
-export default connect(mapStateToProps, {fetchLists, fetchNotifications})(Gulo);
+export default connect(mapStateToProps, mapDispatchToProps)(Gulo);
