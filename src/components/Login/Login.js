@@ -43,9 +43,9 @@ class Login extends Component{
   }
   async login(){
     let {user} = this.props;
-
+    
     await Storage.setItem('authToken', user.authToken);
-    await Storage.setItem('mail', user.mail);    
+    await Storage.setItem('mail', user.mail);
     this.props.history.push('/lists');
   }
 

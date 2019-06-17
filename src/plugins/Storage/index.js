@@ -12,7 +12,7 @@ const Storage = {
 
       case 'android':
       case 'ios':
-        await Storage.set({key, value});
+        await storage.set({key, value});
         break;
 
       default:
@@ -28,10 +28,31 @@ const Storage = {
 
       case 'android':
       case 'ios':
-        return await storage.getItem({key});
+        let ret = await storage.get({key});
+        return ret.value;
 
       default:
     }
+  },
+  removeItem: async (key) => {
+    let {platform} = await Device.getInfo();
+    let storage = (platform==='web') ? window.localStorage : Plugins.Storage;
+    switch(platform){
+      case 'web':
+        await storage.removeItem(key);
+        return;
+
+      case 'android':
+      case 'ios':
+        await storage.remove({key});
+        return;
+
+      default:
+    }
+  },
+  clear: async () => {
+    await Storage.removeItem('mail');
+    await Storage.removeItem('authToken');
   }
 }
 

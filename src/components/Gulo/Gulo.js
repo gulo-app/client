@@ -37,19 +37,23 @@ class Gulo extends Component{
   }
   render(){
     const {user} = this.props;
-    if(!user) return <VerifyAuth/>
     return(
-      <div className='Gulo'>
-        <SocketListener />
-        <SideMenu />
-        <Switch>
-          <Route path='/list/:list_id/bestShoppingCart' component={BestShoppingCart}/>
-          <Route path='/list/:list_id' component={ViewList}/>
-          <Route path='/notifications/:notification_id' component={ViewNotification}/>
-          <Route path='/notifications' component={Notifications}/>
-          <Route path='/' component={Lists}/>
-        </Switch>
-      </div>
+      <>
+        <VerifyAuth/>
+        {user &&
+          <div className='Gulo'>
+            <SocketListener />
+            <SideMenu />
+            <Switch>
+              <Route path='/list/:list_id/bestShoppingCart' component={BestShoppingCart}/>
+              <Route path='/list/:list_id' component={ViewList}/>
+              <Route path='/notifications/:notification_id' component={ViewNotification}/>
+              <Route path='/notifications' component={Notifications}/>
+              <Route path='/' component={Lists}/>
+            </Switch>
+          </div>
+        }
+      </>
     );
   }
 }

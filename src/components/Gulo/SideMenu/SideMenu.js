@@ -12,17 +12,10 @@ class SideMenu extends Component{
   constructor(props){
     super(props);
     this.link     =   this.link.bind(this);
-    this.logout   =   this.logout.bind(this);
   }
   link(to){
     this.props.history.push(to);
     this.props.toggleMenu();
-  }
-  logout(){
-    // this.props.firebase.auth().signOut().then(() => {
-    //   console.log(`signed out from firebase!`);
-    //   this.props.logout();
-    // })
   }
   render(){
     let {isMenu, user, notifications} = this.props;

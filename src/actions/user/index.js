@@ -38,14 +38,7 @@ export function setUser(user){
   };
 }
 
-export async function logout(firebase){
-  await firebase.auth().signOut().then(() => {
-    console.log(`signed out from firebase!`);
-  });
-  const storage = window.localStorage;
-  await storage.removeItem('authToken');
-  await storage.removeItem('mail');
-
+export async function logout(){  
   const req = API_CALL('POST', '/user/logout');
   return{
     type: LOGOUT,
