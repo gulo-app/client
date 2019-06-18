@@ -4,9 +4,10 @@ import Icon               from '../../../Misc/Icon';
 
 class PlusToggler extends Component{
   renderFalse(){
+    const {shoppingMode} = this.props;
     return(
       <div className='false'>
-        <div><button className='expand' onClick={this.props.toggle}><Icon icon="plus" /></button></div>
+        <div><button className='expand' onClick={this.props.toggle}><Icon icon={!shoppingMode ? 'plus' : 'check'} /></button></div>
       </div>
     );
   }

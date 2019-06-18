@@ -17,7 +17,7 @@ import CatGroup         from  './CatGroup';
 class ViewList extends Component{
   constructor(props){
     super(props);
-    this.state = {product: null, isManual: false, isOptions: false, isPlus: false, platform: ''};
+    this.state = {product: null, isManual: false, isOptions: false, isPlus: false, platform: '', shoppingMode: false};
     this.barcodeScanner = BarcodeScanner;
 
     this.checkListID        =     this.checkListID.bind(this);
@@ -25,6 +25,7 @@ class ViewList extends Component{
     this.toggleIsManual     =     this.toggleIsManual.bind(this);
     this.toggleIsOptions    =     this.toggleIsOptions.bind(this);
     this.toggleIsPlus       =     this.toggleIsPlus.bind(this);
+    this.toggleShoppingMode =     this.toggleShoppingMode.bind(this);
     this.setProduct         =     this.setProduct.bind(this);
     this.shareWhatsapp      =     this.shareWhatsapp.bind(this);
     this.clearList          =     this.clearList.bind(this);
@@ -55,6 +56,10 @@ class ViewList extends Component{
   toggleIsPlus(){
     let isPlus = !(this.state.isPlus);
     this.setState({isPlus});
+  }
+  toggleShoppingMode(){
+    let shoppingMode = !(this.state.shoppingMode);
+    this.setState({shoppingMode});
   }
   setProduct(product){
     this.setState({product});
@@ -96,25 +101,29 @@ class ViewList extends Component{
     this.props.history.push(path);
   }
   async scanBarcode(){
-    if(this.state.platform!=='android' && this.state.platform!=='ios')
+    let {platform, shoppingMode} = this.state;
+    if(platform!=='android' && platform!=='ios')
       return false;
 
     let {list: {list_id}} = this.props;
-    this.barcodeScanner.scan().then(barcode => {
+    this.barcodeScanner.scan().then(async barcode => {
       if(barcode.cancelled)
         return false;
-      API_CALL('POST', `/device/scanByMobile/${list_id}/${barcode.text}`);
+      await API_CALL('POST', `/device/scanByMobile/${list_id}/${barcode.text}`, {shoppingMode});
+
+      if(this.state.shoppingMode)
+        this.scanBarcode(); //infinite scan in shoppingMode-> till user go back
     }).catch(err => console.log("Error", err));
   }
   render(){
     const {list,user} = this.props;
     if(!list) return null;
 
-    const {product, isManual, isOptions, isPlus, platform} = this.state;
+    const {product, isManual, isOptions, isPlus, platform, shoppingMode} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;
     return(
       <div className='Page ViewList'>
-        {(isOptions || isPlus) && <div className='overlay'></div>}
+        {(isOptions || isPlus) && <div className='overlay' onClick={() => this.setState({isOptions: false, isPlus: false})}></div>}
         <Modal isOpen={product ? true : false} close={() => this.setProduct(null)}>
           <ModalProduct product={product} close={() => this.setProduct(null)} />
         </Modal>
@@ -124,7 +133,9 @@ class ViewList extends Component{
 
         <header>
           <div className='right'><MenuToggler /></div>
-          <div className='title'>{list.list_name}</div>
+          <div className='title'>
+            {list.list_name}
+          </div>
           <div className='left'><Icon icon='arrow-left' size='2x' onClick={() => this.props.history.goBack()} /></div>
         </header>
         <main className='list-products'>
@@ -134,10 +145,12 @@ class ViewList extends Component{
           <OptionsToggler className={isPlus && 'hidden'}
               isExpand={isOptions} toggle={this.toggleIsOptions} isCreator={isCreator} platform={platform}
               shareWhatsapp={this.shareWhatsapp} clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
+              toggleShoppingMode={this.toggleShoppingMode} shoppingMode={shoppingMode}
             />
             <PlusToggler className={isOptions && 'hidden'}
                 isExpand={isPlus} toggle={this.toggleIsPlus}    isCreator={isCreator} platform={platform}
                 manualProduct={this.toggleIsManual} scanBarcode={this.scanBarcode}
+                shoppingMode={shoppingMode}
             />
         </footer>
       </div>

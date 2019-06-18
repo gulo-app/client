@@ -49,6 +49,16 @@
           color: #fff;
         }
       }
+      &.shopping-mode{
+
+        & .icon{
+          background: white;
+          & svg{
+            color: #f95d49;
+            font-size: 1.2em;
+          }
+        }
+      }
     }
   }
 }

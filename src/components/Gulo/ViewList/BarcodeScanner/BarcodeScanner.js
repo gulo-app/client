@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import BarcodeReader from 'react-barcode-reader'
+import {BarcodeScanner} from '@ionic-native/barcode-scanner';
+import {Plugins}        from '@capacitor/core';
+
 
 class BarcodeScanner extends Component {
   handleScan(data){
