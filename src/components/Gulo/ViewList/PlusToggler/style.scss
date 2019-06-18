@@ -1,9 +1,9 @@
-.OptionsToggler{
+.PlusToggler{
   &.hidden{
     visibility: hidden;
   }
   & button.expand{
-    margin-right: 15px;
+    margin-left: 15px;
     width: 50px;
     height: 50px;
     border-radius: 50px!important;
@@ -19,12 +19,12 @@
     align-items: center;
 
     & > .option{
-      margin-right: 15px;
+      text-align: center;
+      margin-left: 15px;
       display: flex;
       flex-direction: row;
       margin-bottom: 20px;
       position: relative;
-      text-align: center;
       & .desc{
         position: absolute;
         width: 170px;
@@ -32,7 +32,7 @@
         line-height: 35px;
         border: 1px solid #f95d49;
         border-radius: 10px;
-        right: 40px;
+        left: 40px;
         background: #fff;
       }
       & .icon{

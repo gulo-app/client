@@ -12,8 +12,10 @@
       }
     }
     & footer{
-      justify-content: flex-end!important;
-      text-align: center!important;
-      bottom: 20px!important;
+      justify-content: space-between!important;
+      bottom: 15px!important;
+      // justify-content: flex-end!important;
+      // text-align: center!important;
+      // bottom: 20px!important;
     }
 }

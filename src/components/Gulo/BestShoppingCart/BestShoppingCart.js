@@ -28,7 +28,7 @@ class BestShoppingCart extends Component{
   }
   renderShoppingCarts(){
     let {carts} = this.state;
-    carts = _.sortBy(carts, ['total_price'], 'asc');
+    carts = _.sortBy(carts, ['total_price'], 'asc');    
     carts = _.orderBy(carts, (cart) => cart.products.length, 'desc');
     return _.map(carts, (cart) => {
       return <ShoppingCart key={cart.shopping_cart_firm_id} cart={cart}

@@ -11,18 +11,20 @@ import MenuToggler      from '../../Misc/MenuToggler';
 import Modal            from  '../../Misc/MyModal';
 import ModalProduct     from  './ModalProduct';
 import OptionsToggler   from  './OptionsToggler';
+import PlusToggler      from  './PlusToggler';
 import CatGroup         from  './CatGroup';
 
 class ViewList extends Component{
   constructor(props){
     super(props);
-    this.state = {product: null, isManual: false, isMenu: false, platform: ''};
+    this.state = {product: null, isManual: false, isOptions: false, isPlus: false, platform: ''};
     this.barcodeScanner = BarcodeScanner;
 
     this.checkListID        =     this.checkListID.bind(this);
     this.setPlatform        =     this.setPlatform.bind(this);
     this.toggleIsManual     =     this.toggleIsManual.bind(this);
-    this.toggleIsMenu       =     this.toggleIsMenu.bind(this);
+    this.toggleIsOptions    =     this.toggleIsOptions.bind(this);
+    this.toggleIsPlus       =     this.toggleIsPlus.bind(this);
     this.setProduct         =     this.setProduct.bind(this);
     this.shareWhatsapp      =     this.shareWhatsapp.bind(this);
     this.clearList          =     this.clearList.bind(this);
@@ -46,9 +48,13 @@ class ViewList extends Component{
     let isManual = !(this.state.isManual);
     this.setState({isManual});
   }
-  toggleIsMenu(){
-    let isMenu = !(this.state.isMenu);
-    this.setState({isMenu});
+  toggleIsOptions(){
+    let isOptions = !(this.state.isOptions);
+    this.setState({isOptions});
+  }
+  toggleIsPlus(){
+    let isPlus = !(this.state.isPlus);
+    this.setState({isPlus});
   }
   setProduct(product){
     this.setState({product});
@@ -104,11 +110,11 @@ class ViewList extends Component{
     const {list,user} = this.props;
     if(!list) return null;
 
-    const {product, isManual, isMenu, platform} = this.state;
+    const {product, isManual, isOptions, isPlus, platform} = this.state;
     const isCreator = list.creator.mail===user.mail ? true : false;
     return(
       <div className='Page ViewList'>
-        {isMenu && <div className='overlay'></div>}
+        {(isOptions || isPlus) && <div className='overlay'></div>}
         <Modal isOpen={product ? true : false} close={() => this.setProduct(null)}>
           <ModalProduct product={product} close={() => this.setProduct(null)} />
         </Modal>
@@ -125,11 +131,14 @@ class ViewList extends Component{
           {this.renderCatGroups()}
         </main>
         <footer>
-          <OptionsToggler isMenu={isMenu} toggle={this.toggleIsMenu} isCreator={isCreator} platform={platform}
-              shareWhatsapp={this.shareWhatsapp} manualProduct={this.toggleIsManual}
-              clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
-              scanBarcode={this.scanBarcode}
-          />
+          <OptionsToggler className={isPlus && 'hidden'}
+              isExpand={isOptions} toggle={this.toggleIsOptions} isCreator={isCreator} platform={platform}
+              shareWhatsapp={this.shareWhatsapp} clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
+            />
+            <PlusToggler className={isOptions && 'hidden'}
+                isExpand={isPlus} toggle={this.toggleIsPlus}    isCreator={isCreator} platform={platform}
+                manualProduct={this.toggleIsManual} scanBarcode={this.scanBarcode}
+            />
         </footer>
       </div>
     );

@@ -6,13 +6,13 @@ class OptionsToggler extends Component{
   renderFalse(){
     return(
       <div className='false'>
-        <div><button className='expand' onClick={this.props.toggle}><Icon icon="plus" /></button></div>
+        <div><button className='expand' onClick={this.props.toggle}><Icon icon="ellipsis-v" /></button></div>
       </div>
     );
   }
 
   renderTrue(){
-    const {isCreator, platform} = this.props;
+    const {isCreator} = this.props;
     return (
       <div className='true'>
         <div className='expand'><button className='expand' onClick={this.props.toggle}><Icon icon="times" /></button></div>
@@ -30,24 +30,14 @@ class OptionsToggler extends Component{
           <div className='desc'>שיתוף רשימה</div>
           <div className='icon'><Icon icon='whatsapp' faType='fab' /></div>
         </div>
-        {(platform==='ios' || platform==='android') &&
-          <div className='option' onClick={() => {this.props.toggle(); this.props.scanBarcode();}}>
-            <div className='icon'><Icon icon='barcode' /></div>
-            <div className='desc'>סריקת ברקוד</div>
-          </div>
-        }
-        <div className='option' onClick={() => {this.props.toggle(); this.props.manualProduct();}}>
-          <div className='icon'><Icon icon='plus' /></div>
-          <div className='desc'>הוספה ידנית</div>
-        </div>
       </div>
     )
   }
   render(){
-    let {isMenu} = this.props;
+    let {isExpand} = this.props;
     return(
-      <div className='OptionsToggler'>
-        {isMenu ? this.renderTrue() : this.renderFalse()}
+      <div className={`OptionsToggler ${this.props.className}`}>
+        {isExpand ? this.renderTrue() : this.renderFalse()}
       </div>
     );
   }
