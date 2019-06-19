@@ -1,5 +1,5 @@
 
-  @ionic-native/core": "^5.8.0
+  @ionic-native/core"
 
   install "cordova-plugin-inappbrowser": "^3.0.0"  //to fix login popup problem
 
