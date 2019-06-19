@@ -1,14 +1,14 @@
 import {Component} from 'react';
-import io                                                       from 'socket.io-client';
-import {connect}                                                from 'react-redux';
-import {insertList, updateList, deleteList}                     from '../../../actions/list';
-import {updateListProduct, deleteListProduct}                   from '../../../actions/list/product';
-import {updateListManualProduct, deleteListManualProduct}       from '../../../actions/list/manual_product';
-import {subscribeSocket}                                        from '../../../actions/socket';
-import {insertNotification, deleteNotification}                 from '../../../actions/notification';
-import {updateFirebaseNotificationToken}                        from '../../../actions/notification';
-import {URI}                                                    from '../../../consts'
-import { Plugins }                                              from '@capacitor/core';
+import io                                                           from 'socket.io-client';
+import {connect}                                                    from 'react-redux';
+import {insertList, updateList, deleteList, updateListModifiedAt}   from '../../../actions/list';
+import {updateListProduct, deleteListProduct}                       from '../../../actions/list/product';
+import {updateListManualProduct, deleteListManualProduct}           from '../../../actions/list/manual_product';
+import {subscribeSocket}                                            from '../../../actions/socket';
+import {insertNotification, deleteNotification}                     from '../../../actions/notification';
+import {updateFirebaseNotificationToken}                            from '../../../actions/notification';
+import {URI}                                                        from '../../../consts'
+import { Plugins }                                                  from '@capacitor/core';
 
 class SocketListener extends Component{
   constructor(props){
@@ -38,6 +38,7 @@ class SocketListener extends Component{
       socket.on('listDeleted', (list_id) => this.props.deleteList(list_id));
       socket.on('updateListProduct', (listProduct) => this.props.updateListProduct(listProduct));
       socket.on('deleteListProduct', (cb) => this.props.deleteListProduct(cb.list_id, cb.product_id));
+      socket.on('updateListModifiedAt', (cb) => this.props.updateListModifiedAt(cb.list_id, cb.modified_at));
 
       socket.on('updateListManualProduct', (listProduct) => this.props.updateListManualProduct(listProduct));
       socket.on('deleteListManualProduct', (cb) => this.props.deleteListManualProduct(cb.list_id, cb.product_id));
@@ -62,4 +63,4 @@ class SocketListener extends Component{
 
 const mapStateToProps = ({user, socket}) => {return {user, socket} };
 
-export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, deleteListProduct, updateList, deleteList, insertNotification, deleteNotification, updateListManualProduct, deleteListManualProduct, updateFirebaseNotificationToken})(SocketListener);
+export default connect(mapStateToProps, {subscribeSocket, insertList, updateListProduct, deleteListProduct, updateList, deleteList, insertNotification, deleteNotification, updateListManualProduct, deleteListManualProduct, updateFirebaseNotificationToken, updateListModifiedAt})(SocketListener);

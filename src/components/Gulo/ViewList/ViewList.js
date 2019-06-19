@@ -13,6 +13,7 @@ import ModalProduct     from  './ModalProduct';
 import OptionsToggler   from  './OptionsToggler';
 import PlusToggler      from  './PlusToggler';
 import CatGroup         from  './CatGroup';
+import ModifiedAt       from  './ModifiedAt';
 
 class ViewList extends Component{
   constructor(props){
@@ -141,17 +142,20 @@ class ViewList extends Component{
         <main className='list-products'>
           {this.renderCatGroups()}
         </main>
-        <footer>
+        <footer className={(isPlus || isOptions) ? 'no-border' : ''}>
           <OptionsToggler className={isPlus && 'hidden'}
               isExpand={isOptions} toggle={this.toggleIsOptions} isCreator={isCreator} platform={platform}
               shareWhatsapp={this.shareWhatsapp} clearList={this.clearList} bestShoppingCart={this.goBestShoppingCart}
               toggleShoppingMode={this.toggleShoppingMode} shoppingMode={shoppingMode}
-            />
-            <PlusToggler className={isOptions && 'hidden'}
-                isExpand={isPlus} toggle={this.toggleIsPlus}    isCreator={isCreator} platform={platform}
-                manualProduct={this.toggleIsManual} scanBarcode={this.scanBarcode}
-                shoppingMode={shoppingMode}
-            />
+          />
+          {(!isPlus && !isOptions) &&
+            <ModifiedAt modifiedAt={list.modified_at} />
+          }
+          <PlusToggler className={isOptions && 'hidden'}
+              isExpand={isPlus} toggle={this.toggleIsPlus}    isCreator={isCreator} platform={platform}
+              manualProduct={this.toggleIsManual} scanBarcode={this.scanBarcode}
+              shoppingMode={shoppingMode}
+          />
         </footer>
       </div>
     );

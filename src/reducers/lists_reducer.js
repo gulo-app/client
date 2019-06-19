@@ -1,6 +1,6 @@
-import {FETCH_LISTS, INSERT_LIST, UPDATE_LIST, DELETE_LIST}               from '../actions/list';
-import {UPDATE_LIST_PRODUCT, DELETE_LIST_PRODUCT}                         from '../actions/list/product';
-import {UPDATE_LIST_MANUAL_PRODUCT, DELETE_LIST_MANUAL_PRODUCT}           from '../actions/list/manual_product';
+import {FETCH_LISTS, INSERT_LIST, UPDATE_LIST, DELETE_LIST, UPDATE_LIST_MODIFIED_AT}  from '../actions/list';
+import {UPDATE_LIST_PRODUCT, DELETE_LIST_PRODUCT}                                     from '../actions/list/product';
+import {UPDATE_LIST_MANUAL_PRODUCT, DELETE_LIST_MANUAL_PRODUCT}                       from '../actions/list/manual_product';
 import _ from 'lodash';
 
 export default function(state={}, action){
@@ -51,6 +51,9 @@ export default function(state={}, action){
       newState = _.cloneDeep(state);
       delete newState[action.payload.list_id].manual_products[action.payload.product_id];
       return newState;
+
+    case UPDATE_LIST_MODIFIED_AT:      
+      return {...state, [action.payload.list_id]: {...state[action.payload.list_id], 'modified_at': action.payload.modified_at}};
 
     default:
       return state;

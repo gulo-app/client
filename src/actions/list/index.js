@@ -1,9 +1,10 @@
 import {API_CALL} from '../../consts';
 
-export const FETCH_LISTS      =   'FETCH_LISTS';
-export const INSERT_LIST      =   'INSERT_LIST';
-export const UPDATE_LIST      =   'UPDATE_LIST';
-export const DELETE_LIST      =   'DELETE_LIST';
+export const FETCH_LISTS              =   'FETCH_LISTS';
+export const INSERT_LIST              =   'INSERT_LIST';
+export const UPDATE_LIST              =   'UPDATE_LIST';
+export const DELETE_LIST              =   'DELETE_LIST';
+export const UPDATE_LIST_MODIFIED_AT  = 'UPDATE_LIST_MODIFIED_AT';
 
 export function fetchLists(){
   const req = API_CALL('GET', '/list');
@@ -29,5 +30,12 @@ export function updateList(list){
   return {
     type: UPDATE_LIST,
     payload: list
+  }
+}
+
+export function updateListModifiedAt(list_id, modified_at){  
+  return {
+    type: UPDATE_LIST_MODIFIED_AT,
+    payload: {list_id, modified_at}
   }
 }
