@@ -32,5 +32,6 @@ const API_CALL = (verb, path, data) => {
 
 module.exports = {
   API_CALL,
-  URI
+  URI,
+  GCID: '180978526897-03lr0s4rtcsj66hh2d5gl2491tuc3ue2.apps.googleusercontent.com'
 }

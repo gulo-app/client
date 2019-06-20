@@ -6,8 +6,8 @@ export const VERIFY_AUTH      =   'VERIFY_AUTH';
 export const SET_USER         =   'SET_USER';
 export const LOGOUT           =   'LOGOUT';
 
-export function firebaseLogin(user){
-  const req = API_CALL('POST', '/user/login/firebase', user);
+export function firebaseLogin({idToken}){
+  const req = API_CALL('POST', '/user/login/firebase', {idToken});
 
   return{
     type: FIREBASE_LOGIN,
@@ -38,7 +38,7 @@ export function setUser(user){
   };
 }
 
-export async function logout(){  
+export async function logout(){
   const req = API_CALL('POST', '/user/logout');
   return{
     type: LOGOUT,

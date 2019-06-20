@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './style.scss';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {firebaseLogin, verifyAuth} from '../../actions/user/index.js';
-import {withRouter} from 'react-router-dom';
-import Storage    from '../../plugins/Storage';
+import {connect}                    from 'react-redux';
+import {bindActionCreators}         from 'redux';
+import {firebaseLogin, verifyAuth}  from '../../actions/user/index.js';
+import {withRouter}                 from 'react-router-dom';
+import oAuthHandler                 from './oAuthHandler';
 
 class Login extends Component{
   constructor(props){
@@ -20,13 +20,8 @@ class Login extends Component{
   }
 
   async googleLogin(){
-    let {firebase} = this.props;
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(googleProvider).then((user) => {
-      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        this.props.firebaseLogin({idToken}); //email: user.additionalUserInfo.profile.email
-      })
-    }).catch((e) => console.log(e.message));
+    const idToken = await oAuthHandler.login.google(this.props.firebase);
+    this.props.firebaseLogin({idToken});
   }
   async facebookLogin(){
     let {firebase} = this.props;
@@ -41,11 +36,8 @@ class Login extends Component{
         alert('מייל זה כבר משוייך להתחברות מגוגל. \nיש להתחבר באמצעות גוגל');
     });
   }
-  async login(){
-    let {user} = this.props;
-
-    await Storage.setItem('authToken', user.authToken);
-    await Storage.setItem('mail', user.mail);
+  async login(){    
+    await oAuthHandler.login.rememberUser(this.props.user);
     this.props.history.push('/lists');
   }
 
