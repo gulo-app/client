@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "180978526897",
+    "firebase_url": "https://gulo-234107.firebaseio.com",
+    "project_id": "gulo-234107",
+    "storage_bucket": "gulo-234107.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180978526897:android:0767e514e9dda11b",
+        "android_client_info": {
+          "package_name": "com.gulo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180978526897-hf8f2krsa10jr91qqg3mdacc3mtc3hik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gulo.app",
+            "certificate_hash": "8b177fd4bfd387ba890e06669e7bfe7eef69a3fb"
+          }
+        },
+        {
+          "client_id": "180978526897-03lr0s4rtcsj66hh2d5gl2491tuc3ue2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJcElJYg-ypq64597C-OO0p_P-OTzZG2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180978526897-03lr0s4rtcsj66hh2d5gl2491tuc3ue2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
