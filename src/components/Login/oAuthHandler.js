@@ -17,7 +17,7 @@ const oAuthHandler = { //firebase for web login
             const googleProvider = new firebase.auth.GoogleAuthProvider();
             return firebase.auth().signInWithPopup(googleProvider).then((user) => {
               return firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-                return idToken;
+                return {idToken};
               })
             }).catch((e) => console.log(e.message));
 
@@ -25,7 +25,7 @@ const oAuthHandler = { //firebase for web login
         case 'ios':
             console.log(`login mobile`);
             let {idToken} = await GooglePlus.login({'webClientId': '180978526897-pa56t6sljm8hb1td5be3o2jdhopqbdj4.apps.googleusercontent.com'});
-            return {idToken, isNative: true};                      
+            return {idToken, isNative: true};
         default:
           return null;
       }
