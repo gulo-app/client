@@ -7,7 +7,7 @@ if(window.location.hostname.includes('montv10.net'))
   URI = "http://montv10.net:9400";
 
 if(!URI)
-  URI = "http://localhost:9400";
+  URI = "http://montv10.net:9400";
 
 console.log(`service-url: ${URI}`);
 
@@ -32,6 +32,5 @@ const API_CALL = (verb, path, data) => {
 
 module.exports = {
   API_CALL,
-  URI,
-  GCID: '180978526897-pa56t6sljm8hb1td5be3o2jdhopqbdj4.apps.googleusercontent.com'
+  URI
 }

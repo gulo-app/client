@@ -1,6 +1,6 @@
 {
-  "appId": "com.gulo.app",
+  "appId": "com.gulo.app",  
   "appName": "Gulo",
   "bundledWebRuntime": false,
-  "webDir": "build"  
+  "webDir": "build"
 }

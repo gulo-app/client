@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "180978526897-dsd84b5j7hiaki7k28tfjlc5ibn05t82.apps.googleusercontent.com",
+          "client_id": "180978526897-imjfg24re9pn0250uc1ku3p5t98kulap.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gulo.app",
@@ -29,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBlxcBAVAM29clBfxFsKQrzzNy24SZPzNw"
+          "current_key": "AIzaSyD45u8uXQTLvLIus7dz4UwVBM3HPC1g6Mc"
         }
       ],
       "services": {

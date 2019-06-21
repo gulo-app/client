@@ -1,6 +1,6 @@
 import {Plugins}                    from '@capacitor/core';
 import { GooglePlus }               from '@ionic-native/google-plus';
-import { GCID, API_CALL }           from '../../consts';
+import { API_CALL }                 from '../../consts';
 import Storage                      from '../../plugins/Storage';
 const {Device} = Plugins;
 
@@ -14,7 +14,6 @@ const oAuthHandler = { //firebase for web login
       const {platform} = await Device.getInfo();
       switch(platform){
         case 'web':
-        case 'android':
             const googleProvider = new firebase.auth.GoogleAuthProvider();
             return firebase.auth().signInWithPopup(googleProvider).then((user) => {
               return firebase.auth().currentUser.getIdToken(true).then((idToken) => {
@@ -22,12 +21,11 @@ const oAuthHandler = { //firebase for web login
               })
             }).catch((e) => console.log(e.message));
 
-        case 'ios':        
+        case 'android':
+        case 'ios':
             console.log(`login mobile`);
-            return GooglePlus.login({webClientId: GCID}).then(({idToken}) => {
-              return idToken;
-            }).catch(e => console.log(e));
-
+            let {idToken} = await GooglePlus.login({'webClientId': '180978526897-pa56t6sljm8hb1td5be3o2jdhopqbdj4.apps.googleusercontent.com'});
+            return {idToken, isNative: true};                      
         default:
           return null;
       }

@@ -20,9 +20,10 @@ class Login extends Component{
   }
 
   async googleLogin(){
-    const idToken = await oAuthHandler.login.google(this.props.firebase);
-    this.props.firebaseLogin({idToken});
+    const authCB = await oAuthHandler.login.google(this.props.firebase);
+    this.props.firebaseLogin(authCB);
   }
+  
   async facebookLogin(){
     let {firebase} = this.props;
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
