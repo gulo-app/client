@@ -1,16 +1,16 @@
 import {API_CALL} from '../../consts';
 
-export const FIREBASE_LOGIN   =   'FIREBASE_LOGIN';
+export const LOGIN            =   'FIREBASE_LOGIN';
 export const AUTO_LOGIN       =   'AUTO_LOGIN';
 export const VERIFY_AUTH      =   'VERIFY_AUTH';
 export const SET_USER         =   'SET_USER';
 export const LOGOUT           =   'LOGOUT';
 
-export function firebaseLogin(user){
-  const req = API_CALL('POST', '/user/login/firebase', user);
+export function login(user){
+  const req = API_CALL('POST', '/user/login', user);
 
   return{
-    type: FIREBASE_LOGIN,
+    type: LOGIN,
     payload: req
   };
 }

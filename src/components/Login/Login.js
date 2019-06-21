@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './style.scss';
 import {connect}                    from 'react-redux';
 import {bindActionCreators}         from 'redux';
-import {firebaseLogin, verifyAuth}  from '../../actions/user/index.js';
+import {login, verifyAuth}          from '../../actions/user/index.js';
 import {withRouter}                 from 'react-router-dom';
 import oAuthHandler                 from './oAuthHandler';
 
@@ -21,21 +21,15 @@ class Login extends Component{
 
   async googleLogin(){
     const authCB = await oAuthHandler.login.google(this.props.firebase);
-    this.props.firebaseLogin(authCB);
+    if(authCB)
+      this.props.login(authCB);
   }
-  
+
   async facebookLogin(){
-    let {firebase} = this.props;
-    const facebookProvider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(facebookProvider).then((user) => {
-      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        this.props.firebaseLogin({idToken}); //email: user.additionalUserInfo.profile.email
-      })
-    }).catch((e) => {
-      console.log(e.message);
-      if(e.code==='auth/account-exists-with-different-credential')
-        alert('מייל זה כבר משוייך להתחברות מגוגל. \nיש להתחבר באמצעות גוגל');
-    });
+    const authCB = await oAuthHandler.login.facebook(this.props.firebase);
+    console.log(authCB);
+    if(authCB)
+      this.props.login(authCB);
   }
   async login(){
     await oAuthHandler.login.rememberUser(this.props.user);
@@ -69,7 +63,7 @@ function mapStateToProps({user, firebase}){
   return {user, firebase};
 }
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({firebaseLogin, verifyAuth}, dispatch);
+  return bindActionCreators({login, verifyAuth}, dispatch);
 }
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login));

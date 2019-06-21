@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="28">
+        tools:targetApi="28">        
 
         <meta-data
           android:name="com.google.firebase.messaging.default_notification_icon"

@@ -7,7 +7,7 @@ if(window.location.hostname.includes('montv10.net'))
   URI = "http://montv10.net:9400";
 
 if(!URI)
-  URI = "http://montv10.net:9400";
+  URI = "http://localhost:9400";
 
 console.log(`service-url: ${URI}`);
 
