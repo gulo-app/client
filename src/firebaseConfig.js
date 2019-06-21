@@ -1,5 +1,5 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDpRnwwUH6W99p-uL3gqh1pVMTvJvNjgVM",
+  apiKey: "AIzaSyBlxcBAVAM29clBfxFsKQrzzNy24SZPzNw",
   authDomain: "gulo-234107.firebaseapp.com",
   databaseURL: "https://gulo-234107.firebaseio.com",
   projectId: "gulo-234107",
