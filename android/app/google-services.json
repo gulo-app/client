@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "180978526897-hf8f2krsa10jr91qqg3mdacc3mtc3hik.apps.googleusercontent.com",
+          "client_id": "180978526897-dsd84b5j7hiaki7k28tfjlc5ibn05t82.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gulo.app",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "180978526897-03lr0s4rtcsj66hh2d5gl2491tuc3ue2.apps.googleusercontent.com",
+          "client_id": "180978526897-pa56t6sljm8hb1td5be3o2jdhopqbdj4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJcElJYg-ypq64597C-OO0p_P-OTzZG2M"
+          "current_key": "AIzaSyBlxcBAVAM29clBfxFsKQrzzNy24SZPzNw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "180978526897-03lr0s4rtcsj66hh2d5gl2491tuc3ue2.apps.googleusercontent.com",
+              "client_id": "180978526897-pa56t6sljm8hb1td5be3o2jdhopqbdj4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -14,6 +14,7 @@ const oAuthHandler = { //firebase for web login
       const {platform} = await Device.getInfo();
       switch(platform){
         case 'web':
+        case 'android':
             const googleProvider = new firebase.auth.GoogleAuthProvider();
             return firebase.auth().signInWithPopup(googleProvider).then((user) => {
               return firebase.auth().currentUser.getIdToken(true).then((idToken) => {
@@ -21,8 +22,7 @@ const oAuthHandler = { //firebase for web login
               })
             }).catch((e) => console.log(e.message));
 
-        case 'ios':
-        case 'android':
+        case 'ios':        
             console.log(`login mobile`);
             return GooglePlus.login({webClientId: GCID}).then(({idToken}) => {
               return idToken;
@@ -33,7 +33,7 @@ const oAuthHandler = { //firebase for web login
       }
     }
   },
-  verifyAuth: async (user) => {    
+  verifyAuth: async (user) => {
     const mail        =   await Storage.getItem('mail');
     const authToken   =   await Storage.getItem('authToken');
 

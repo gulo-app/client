@@ -36,7 +36,7 @@ class Login extends Component{
         alert('מייל זה כבר משוייך להתחברות מגוגל. \nיש להתחבר באמצעות גוגל');
     });
   }
-  async login(){    
+  async login(){
     await oAuthHandler.login.rememberUser(this.props.user);
     this.props.history.push('/lists');
   }

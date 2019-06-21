@@ -9,7 +9,7 @@ export default function(state=null, action){
       if(action.error){
         console.log("login failed");
         return null;
-      }      
+      }
       return action.payload;
     case LOGOUT:
       return null;
