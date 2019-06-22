@@ -33,7 +33,7 @@ class Login extends Component{
   }
   async login(){
     await oAuthHandler.login.rememberUser(this.props.user);
-    this.props.history.push('/lists');
+    this.props.history.replace('/lists');
   }
 
   render(){
