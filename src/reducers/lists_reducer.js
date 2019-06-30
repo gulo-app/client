@@ -18,7 +18,7 @@ export default function(state={}, action){
         val.products        =   _.keyBy(val.products, 'id') //map products array to mapped object
         val.manual_products =   _.keyBy(val.manual_products, 'id') //map products array to mapped object
       })
-      console.log(mapLists);
+      //console.log(mapLists);
       return mapLists;
 
     case INSERT_LIST:
@@ -52,7 +52,7 @@ export default function(state={}, action){
       delete newState[action.payload.list_id].manual_products[action.payload.product_id];
       return newState;
 
-    case UPDATE_LIST_MODIFIED_AT:      
+    case UPDATE_LIST_MODIFIED_AT:
       return {...state, [action.payload.list_id]: {...state[action.payload.list_id], 'modified_at': action.payload.modified_at}};
 
     default:

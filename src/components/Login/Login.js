@@ -26,8 +26,7 @@ class Login extends Component{
   }
 
   async facebookLogin(){
-    const authCB = await oAuthHandler.login.facebook(this.props.firebase);
-    console.log(authCB);
+    const authCB = await oAuthHandler.login.facebook(this.props.firebase);    
     if(authCB)
       this.props.login(authCB);
   }

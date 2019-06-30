@@ -14,17 +14,17 @@ console.log(`service-url: ${URI}`);
 const API_CALL = (verb, path, data) => {
   return new Promise((resolve, reject) => {
     let url = `${URI}${path}`;
-    console.log(`API_CALL: ${url}`);
+    //console.log(`API_CALL: ${url}`);
 
-    axios(`${URI}${path}`, {
+    axios(url, {
       method: verb,
       withCredentials: true,
       data
     }).then((res) => {
       resolve(res.data);
     }).catch((err) => {
-      console.log(`API_CALL ERROR`);
-      console.log(err);
+      //console.log(`API_CALL ERROR`);
+      //console.log(err);
       reject(err);
     })
   });

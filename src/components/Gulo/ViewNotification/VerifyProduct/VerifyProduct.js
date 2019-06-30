@@ -25,7 +25,7 @@ class VerifyProduct extends Component{
   verify(){
     const {notification_id, product} = this.props.noti;
     API_CALL('POST', `/notification/${notification_id}/verifyProduct`, {product}).then((cb) => {
-      console.log(cb);
+      //console.log(cb);
     });
   }
   overwrite(product){
@@ -36,7 +36,7 @@ class VerifyProduct extends Component{
   }
   renderVerifyQuestion(){
     let {noti} = this.props;
-    console.log(noti);
+    //console.log(noti);
     return(
       <div className='VerifyQuestion'>
         <div className='product-details'>

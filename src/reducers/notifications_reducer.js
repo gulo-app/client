@@ -40,7 +40,7 @@ export default function(state=[], action){
       return { ...state, [noti_id]: {...state[noti_id], 'isRead': 1}};
 
     case CONFIRM_NOTIFICATION:
-      console.log('CONFIRM_NOTIFICATION');
+      //console.log('CONFIRM_NOTIFICATION');
       updatedNotification = action.payload;
       return { ...state, [updatedNotification.notification_id]: updatedNotification };
 
