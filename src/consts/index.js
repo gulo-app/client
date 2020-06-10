@@ -2,9 +2,9 @@ const axios = require('axios');
 
 let URI;
 if(process.env.NODE_ENV==='production')
-  URI = "http://montv10.net:9400";  // URI = "http://10.0.2.2:9400";
+  URI = "https://montv10.net:9400";  // URI = "http://10.0.2.2:9400";
 if(window.location.hostname.includes('montv10.net'))
-  URI = "http://montv10.net:9400";
+  URI = "https://montv10.net:9400";
 
 if(!URI)
   URI = "http://localhost:9400";
