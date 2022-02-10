@@ -23,7 +23,7 @@
     "cordova-plugin-inappbrowser": "^3.0.0",
     "firebase": "^6.1.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "phonegap-plugin-barcodescanner": "^8.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
